@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteDark2"
+    tools:context=".activities.VoucherActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_medium_3"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnClose"
+            android:layout_width="@dimen/width_voucher_close"
+            android:layout_height="@dimen/height_voucher_close_btn"
+            android:layout_marginStart="@dimen/margin_small"
+            app:srcCompat="@drawable/ic_baseline_close_black_24" />
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rlVoucherTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+
+                    android:id="@+id/tvVoucherTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/lbl_awesome"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_heading_1x"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvVoucherTitle"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/margin_medium"
+                    android:text="@string/lbl_this_is_your_ticket"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:textStyle="bold" />
+                <androidx.cardview.widget.CardView
+                    android:layout_below="@id/tvDesc"
+                    android:id="@+id/cvShowingMoviePicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/boucher_card_radius">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_img_voucher"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/pic_now_showing" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="@dimen/margin_medium"
+                            android:paddingTop="@dimen/margin_medium"
+                            android:paddingEnd="@dimen/margin_medium"
+                            android:text="Detective Pikachu"
+                            android:textColor="@color/blackLight5"
+                            android:textSize="@dimen/text_regular_3x"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/margin_medium"
+                            android:text="105m-IMAX"
+                            android:textColor="@color/whiteDark7"
+                            android:textSize="@dimen/text_regular" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/height_img_dotted"
+                                android:layout_gravity="center"
+                                android:layerType="software"
+                                android:src="@drawable/background_dotted"
+                                tools:ignore="ContentDescription" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/width_img_circle"
+                                android:layout_height="@dimen/height_img_circle"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="@dimen/margin_n"
+                                android:src="@drawable/background_circle"
+                                tools:ignore="ContentDescription" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/width_img_circle"
+                                android:layout_height="@dimen/width_img_circle"
+                                android:layout_gravity="end"
+                                android:layout_marginEnd="@dimen/margin_n"
+                                android:src="@drawable/background_circle"
+                                tools:ignore="ContentDescription" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_booking_no"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="GC1547219308"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_show_time_date"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="7:00 PM- 10 May"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_theater"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="Galaxy Cinema - Golden City"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_screen"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="2"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_row"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="D"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_seats"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="5,6"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/margin_medium"
+                                android:paddingTop="@dimen/margin_medium"
+                                android:paddingEnd="@dimen/margin_medium"
+                                android:text="@string/lbl_price_voucher_title"
+                                android:textColor="@color/whiteDark7"
+                                android:textSize="@dimen/text_regular_2x" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:padding="@dimen/margin_medium"
+                                android:text="$40.00"
+                                android:textColor="@color/blackLight5"
+                                android:textSize="@dimen/text_regular_2x"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/height_img_dotted"
+                                android:layout_gravity="center"
+                                android:layerType="software"
+                                android:src="@drawable/background_dotted"
+                                tools:ignore="ContentDescription" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/width_img_circle"
+                                android:layout_height="@dimen/height_img_circle"
+                                android:layout_gravity="start"
+                                android:layout_marginStart="@dimen/margin_n"
+                                android:src="@drawable/background_circle"
+                                tools:ignore="ContentDescription" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="@dimen/width_img_circle"
+                                android:layout_height="@dimen/height_img_circle"
+                                android:layout_gravity="end"
+                                android:layout_marginEnd="@dimen/margin_n"
+                                android:src="@drawable/background_circle"
+                                tools:ignore="ContentDescription" />
+                        </FrameLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/height_img_barcode"
+
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/margin_medium_3"
+                            android:scaleType="centerCrop"
+                            app:srcCompat="@drawable/pic_barcode" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

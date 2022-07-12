@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.TicketBookingTimeActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_baseline_arrow_back_white_24" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+   <RelativeLayout
+       android:background="@color/colorPrimary"
+       app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <androidx.recyclerview.widget.RecyclerView
+           tools:listitem="@layout/view_holder_date_list"
+           android:id="@+id/rvDateList"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"/>
+       <LinearLayout
+           android:layout_marginTop="@dimen/margin_medium"
+           android:layout_below="@id/rvDateList"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@drawable/background_movie_detail_title"
+           android:orientation="vertical"
+           android:layout_above="@id/rlNext">
+              <androidx.recyclerview.widget.RecyclerView
+                  android:layout_marginTop="@dimen/margin_medium_3"
+                       android:id="@+id/rvAvailableTicketItemList"
+                       tools:listitem="@layout/view_holder_ticket_booking_time_item"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"/>
+
+       </LinearLayout>
+
+       <RelativeLayout
+           android:id="@+id/rlNext"
+           android:layout_alignParentBottom="true"
+           android:background="@color/colorAccent"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <androidx.appcompat.widget.AppCompatButton
+               android:id="@+id/btnNext"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="@dimen/margin_card_medium_2"
+               android:layout_marginEnd="@dimen/margin_card_medium_2"
+               android:layout_marginBottom="@dimen/margin_card_medium_2"
+               android:background="@drawable/background_get_started_button"
+               android:gravity="center"
+               android:text="@string/lbl_next"
+               android:textAllCaps="false"
+               android:textColor="@color/colorAccent" />
+       </RelativeLayout>
+
+   </RelativeLayout>
+
+
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

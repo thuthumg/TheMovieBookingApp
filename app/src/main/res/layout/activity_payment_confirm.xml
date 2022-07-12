@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PaymentConfirmActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_black_24" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_medium_3">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_medium_2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPaymentAmountTitleLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:text="@string/lbl_payment_amount"
+                    android:textColor="@color/blackLight4"
+                    android:textSize="@dimen/text_regular_2x" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPaymentAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvPaymentAmountTitleLabel"
+                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:text="@string/lbl_amount"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_heading_1x"
+                    android:textStyle="bold" />
+
+
+
+                <!-- Carousel View-->
+                <alirezat775.lib.carouselview.CarouselView
+                    android:layout_below="@id/tvPaymentAmount"
+                                   android:layout_marginBottom="@dimen/margin_xxlarge"
+                                    android:layout_marginTop="@dimen/margin_xxlarge"
+                                    android:layout_marginEnd="@dimen/margin_medium_2"
+                                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:id="@+id/carouselRecyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+<!--                <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview-->
+
+<!--                    android:id="@+id/carouselRecyclerview"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/height_carousel_card_view"-->
+<!--                    android:layout_below="@id/tvPaymentAmount"-->
+<!--                    android:layout_marginBottom="@dimen/margin_xxlarge"-->
+<!--                    android:layout_marginTop="@dimen/margin_xxlarge"-->
+<!--                    android:layout_marginEnd="@dimen/margin_medium_2"-->
+<!--                    android:layout_marginStart="@dimen/margin_medium_2"-->
+<!--                    tools:listitem="@layout/view_holder_card_list" />-->
+
+                <RelativeLayout
+
+                    android:id="@+id/rlBtnAddNewCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/carouselRecyclerview">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+
+                        android:id="@+id/ivAddToCardPlusBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_medium_2"
+                        android:layout_marginTop="@dimen/margin_medium_2"
+                        app:srcCompat="@drawable/ic_baseline_add_circle_green_24" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/ivAddToCardPlusBtn"
+                        android:layout_marginStart="@dimen/margin_medium_2"
+                        android:layout_marginTop="@dimen/margin_medium_2"
+                        android:layout_toEndOf="@id/ivAddToCardPlusBtn"
+                        android:text="@string/lbl_add_new_card"
+                        android:textColor="#32CD32"
+                        android:textSize="@dimen/text_regular_2x"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorAccent">
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_card_medium_2"
+                android:layout_marginEnd="@dimen/margin_card_medium_2"
+                android:layout_marginBottom="@dimen/margin_card_medium_2"
+                android:background="@drawable/background_get_started_button"
+                android:gravity="center"
+                android:text="@string/lbl_confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_regular" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

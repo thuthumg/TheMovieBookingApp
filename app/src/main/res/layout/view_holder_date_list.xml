@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="@dimen/width_date_item"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textSize="@dimen/text_regular_2x"
+        android:padding="@dimen/margin_medium"
+        android:textColor="@android:color/darker_gray"
+        android:text="We"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:padding="@dimen/margin_medium"
+        android:textSize="@dimen/text_regular_2x"
+        android:textColor="@android:color/darker_gray"
+        android:text="10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

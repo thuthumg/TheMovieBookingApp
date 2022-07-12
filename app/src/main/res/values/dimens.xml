@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--   Generic with ratio-->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_card_medium">6dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_medium_2">16dp</dimen>
+    <dimen name="margin_card_medium_2">12dp</dimen>
+    <dimen name="margin_medium_3">20dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">48dp</dimen>
+    <dimen name="margin_small_n">-4dp</dimen>
+    <dimen name="margin_card_medium_n">-6dp</dimen>
+    <dimen name="margin_medium_n">-8dp</dimen>
+    <dimen name="margin_card_medium_2_n">-12dp</dimen>
+    <dimen name="margin_medium_2_n">-16dp</dimen>
+    <dimen name="margin_medium_3_n">-18dp</dimen>
+    <dimen name="margin_large_n">-24dp</dimen>
+    <dimen name="margin_xlarge_n">-32dp</dimen>
+    <dimen name="text_smaller">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_regular">14sp</dimen>
+    <dimen name="text_regular_2x">16sp</dimen>
+    <dimen name="text_regular_3x">20sp</dimen>
+    <dimen name="text_heading_1x">24sp</dimen>
+    <dimen name="text_heading_2x">32sp</dimen>
+    <dimen name="text_big">40sp</dimen>
+    <dimen name="text_big_2x">68sp</dimen>
+    <dimen name="text_big_3x">80sp</dimen>
+
+    <dimen name="dimen_100">100dp</dimen>
+    <dimen name="dimen_200">200dp</dimen>
+    <dimen name="dimen_400">400dp</dimen>
+
+
+
+    <!-- App Specific Dimensions   -->
+    <dimen name="width_movie_list_profile">96dp</dimen>
+    <dimen name="height_movie_list_profile">96dp</dimen>
+
+    <dimen name="height_collapsing_toolbar_movie_details">300dp</dimen>
+    <dimen name="width_date_item">50dp</dimen>
+    <dimen name="width_available_type">80dp</dimen>
+    <dimen name="height_available_type">40dp</dimen>
+    <dimen name="width_available_time">80dp</dimen>
+    <dimen name="height_available_time">40dp</dimen>
+    <dimen name="height_voucher_close_btn">30dp</dimen>
+    <dimen name="width_voucher_close">30dp</dimen>
+    <dimen name="width_carousel_pic">180dp</dimen>
+    <dimen name="height_carousel_pic">90dp</dimen>
+    <dimen name="boucher_card_radius">14dp</dimen>
+    <dimen name="height_img_voucher">200dp</dimen>
+    <dimen name="height_img_dotted">5dp</dimen>
+    <dimen name="width_img_circle">20dp</dimen>
+    <dimen name="height_img_circle">20dp</dimen>
+    <dimen name="margin_n">-10dp</dimen>
+    <dimen name="height_img_barcode">70dp</dimen>
+    <dimen name="height_carousel_card_view">200dp</dimen>
+    <dimen name="width_carousel_card_item">300dp</dimen>
+    <dimen name="width_get_started_img_view">300dp</dimen>
+    <dimen name="civ_border_width_circle_img_view">1dp</dimen>
+    <dimen name="width_fb_image_view">30dp</dimen>
+    <dimen name="height_fb_image_view">30dp</dimen>
+    <dimen name="width_google_image_view">30dp</dimen>
+    <dimen name="height_google_image_view">30dp</dimen>
+    <dimen name="time_view_padding">10dp</dimen>
+    <dimen name="width_civ">60dp</dimen>
+    <dimen name="height_civ">60dp</dimen>
+    <dimen name="width_civ_border">2dp</dimen>
+    <dimen name="chip_stroke_width">1dp</dimen>
+    <dimen name="width_movie_cv">140dp</dimen>
+    <dimen name="height_movie_cv">200dp</dimen>
+    <dimen name="card_radius_movie_cv">14dp</dimen>
+    <dimen name="width_btn_minus">30dp</dimen>
+    <dimen name="height_btn_minus">30dp</dimen>
+    <dimen name="width_qty">30dp</dimen>
+    <dimen name="height_qty">30dp</dimen>
+    <dimen name="width_btn_plus">30dp</dimen>
+    <dimen name="height_btn_plus">30dp</dimen>
+    <dimen name="width_nav_view_drawer_layout">300dp</dimen>
+    <dimen name="width_drawer_profile">48dp</dimen>
+    <dimen name="height_drawer_profile">48dp</dimen>
+    <dimen name="civ_margin_top">64dp</dimen>
+    <dimen name="menu_margin_top">48dp</dimen>
+    <dimen name="menu_gap">32dp</dimen>
+    <dimen name="margin_movie_seats">6dp</dimen>
+    <dimen name="height_custom_curve_linearl_ayout">40dp</dimen>
+    <dimen name="height_custom_curve_view">20dp</dimen>
+
+
+</resources>

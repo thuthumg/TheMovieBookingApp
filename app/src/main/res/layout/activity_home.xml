@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HomeActivity"
+    tools:openDrawer="left">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:title="" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <!--main content-->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <!--  Profile-->
+
+                <LinearLayout
+                    android:id="@+id/llProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civProfileImage"
+                        android:layout_width="@dimen/width_movie_list_profile"
+                        android:layout_height="@dimen/height_movie_list_profile"
+                        android:padding="@dimen/margin_medium"
+                        android:src="@drawable/pic_profile"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="@dimen/civ_border_width_circle_img_view" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvProfileName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:text="@string/lbl_hi_lily"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_regular_2x"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <!--  Now Showing-->
+
+                <include
+                    android:id="@+id/viewPodNowShowing"
+                    layout="@layout/view_pod_now_showing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/llProfile" />
+
+                <include
+                    android:id="@+id/viewPodComingSoon"
+                    layout="@layout/view_pod_now_showing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewPodNowShowing" />
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:maxWidth="@dimen/width_nav_view_drawer_layout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/margin_medium_2"
+            android:paddingEnd="@dimen/margin_medium_2">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civProfile"
+                android:layout_width="@dimen/width_drawer_profile"
+                android:layout_height="@dimen/height_drawer_profile"
+                android:layout_marginTop="@dimen/civ_margin_top"
+                android:src="@drawable/pic_profile" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/civProfile"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:layout_toEndOf="@id/civProfile"
+                android:text="@string/lbl_lily_johnson"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_regular_2x"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvName"
+                android:layout_alignStart="@id/tvName"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/lbl_lily_johnson_gmail_com"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tvEmail"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@id/tvEmail"
+                android:text="@string/lbl_edit"
+                android:textAlignment="textEnd"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small" />
+
+            <LinearLayout
+
+                android:id="@+id/llPromotionCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/civProfile"
+                android:layout_marginTop="@dimen/menu_margin_top"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_local_offer_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvPromotionCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_promotion_code"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/llTranslate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llPromotionCode"
+                android:layout_marginTop="@dimen/menu_gap"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_g_translate_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_select_a_language"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/llTermsOfServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llTranslate"
+                android:layout_marginTop="@dimen/menu_gap"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_assignment_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTermOfServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_term_of_services"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/llHelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llTermsOfServices"
+                android:layout_marginTop="@dimen/menu_gap"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_help_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_help"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/llRateUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llHelp"
+                android:layout_marginTop="@dimen/menu_gap"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_stars_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRateUs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_rate_us"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x" />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/llLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/menu_gap"
+                android:layout_marginBottom="@dimen/menu_margin_top"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_login_white_24" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:text="@string/lbl_log_out"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_regular_2x"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
