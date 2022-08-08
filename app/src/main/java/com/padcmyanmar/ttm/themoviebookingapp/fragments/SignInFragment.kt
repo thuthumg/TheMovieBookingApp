@@ -10,6 +10,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.LogInSignInDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.viewpods.LogInSingInButtonViewPod
 import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
 class SignInFragment(var mDelegate: LogInSignInDelegate) : Fragment() {
 
@@ -35,6 +36,12 @@ class SignInFragment(var mDelegate: LogInSignInDelegate) : Fragment() {
         mViewPodLogInSignInButtonViewPod = viewPodSignIn as LogInSingInButtonViewPod
         mViewPodLogInSignInButtonViewPod.setUpViewPodClickListener(requireContext())
         mViewPodLogInSignInButtonViewPod.setDelegate(mDelegate)
+
+//        ,
+//            mViewPodLogInSignInButtonViewPod.txtInputName.text,
+//            mViewPodLogInSignInButtonViewPod.txtInputEmail.text,
+//            mViewPodLogInSignInButtonViewPod.txtInputPhone.text,
+//            mViewPodLogInSignInButtonViewPod.txtInputPassword.text
         super.onViewCreated(view, savedInstanceState)
     }
 
