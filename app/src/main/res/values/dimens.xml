@@ -88,5 +88,11 @@
     <dimen name="height_custom_curve_linearl_ayout">40dp</dimen>
     <dimen name="height_custom_curve_view">20dp</dimen>
 
+    <dimen name="width_cardSlider_otherPages">45dp</dimen>
+
+    <dimen name="smallAlphaFactor">0.5</dimen>
+    <dimen name="smallScaleFactor">0.7</dimen>
+
+
 
 </resources>

@@ -66,6 +66,7 @@
     <color name="sub_total_color">#13C18C</color>
     <color name="progress_bar_color">#FFD54F</color>
     <color name="background_carousel_card_item">#A57AFF</color>
+    <color name="background_carousel_card_item_transparent">#9AA57AFF</color>
 
     <color name="movie_seat_taken_color">#8291b2</color>
     <color name="movie_seat_available_color">#d1d8eb</color>

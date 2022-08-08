@@ -33,6 +33,8 @@ class WelcomeLoginActivity : AppCompatActivity() , LogInSignInDelegate {
     }
 
     override fun onTapGoToMovieListPage() {
+
+
        startActivity(Intent(this, HomeActivity::class.java))
     }
 

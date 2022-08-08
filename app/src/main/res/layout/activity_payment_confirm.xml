@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:coverflow="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -61,30 +62,21 @@
                     android:textStyle="bold" />
 
 
-
                 <!-- Carousel View-->
-                <alirezat775.lib.carouselview.CarouselView
-                    android:layout_below="@id/tvPaymentAmount"
-                                   android:layout_marginBottom="@dimen/margin_xxlarge"
-                                    android:layout_marginTop="@dimen/margin_xxlarge"
-                                    android:layout_marginEnd="@dimen/margin_medium_2"
-                                    android:layout_marginStart="@dimen/margin_medium_2"
+                <!--  app:cardSlider_smallScaleFactor //scale factor of height of pages in left and right (1 if no resizing nedded)
+                 app:cardSlider_otherPagesWidth // width of displayed parts of left and right pages
+                 app:cardSlider_pageMargin // margin between pages
+                 // auto sliding time in seconds-->
+                <com.github.islamkhsh.CardSliderViewPager
                     android:id="@+id/carouselRecyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-
-<!--                <com.jackandphantom.carouselrecyclerview.CarouselRecyclerview-->
-
-<!--                    android:id="@+id/carouselRecyclerview"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/height_carousel_card_view"-->
-<!--                    android:layout_below="@id/tvPaymentAmount"-->
-<!--                    android:layout_marginBottom="@dimen/margin_xxlarge"-->
-<!--                    android:layout_marginTop="@dimen/margin_xxlarge"-->
-<!--                    android:layout_marginEnd="@dimen/margin_medium_2"-->
-<!--                    android:layout_marginStart="@dimen/margin_medium_2"-->
-<!--                    tools:listitem="@layout/view_holder_card_list" />-->
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvPaymentAmount"
+                    android:layout_marginTop="@dimen/margin_large"
+                    app:cardSlider_otherPagesWidth="@dimen/width_cardSlider_otherPages"
+                    app:cardSlider_pageMargin="@dimen/margin_medium"
+                    app:cardSlider_smallAlphaFactor="@dimen/smallAlphaFactor"
+                    app:cardSlider_smallScaleFactor="@dimen/smallScaleFactor" />
 
                 <RelativeLayout
 

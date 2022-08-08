@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@drawable/background_payment_card"
-    android:gravity="center"
+        android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_marginBottom="@dimen/margin_card_medium_2"
