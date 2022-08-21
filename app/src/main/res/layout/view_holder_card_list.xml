@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@drawable/background_payment_card"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_payment_card"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_marginBottom="@dimen/margin_card_medium_2"
@@ -15,6 +15,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+
                 android:textSize="@dimen/text_regular_2x"
                 android:textColor="@color/white"
                 android:textStyle="bold|italic"
@@ -32,46 +33,51 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
+            android:gravity="center"
             android:layout_marginBottom="@dimen/margin_card_medium_2"
             android:padding="@dimen/margin_medium"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="@dimen/text_regular_2x"
+                android:id="@+id/tvPaymentCardNumberFirstPart"
+                android:textSize="@dimen/text_regular_3x"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="@string/lbl_four_digit"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="@dimen/text_regular_2x"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="@string/lbl_four_digit"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                tools:text="@string/lbl_four_digit"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="@dimen/text_regular_2x"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="@string/lbl_four_digit"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-            <androidx.appcompat.widget.AppCompatTextView
-                android:textSize="@dimen/text_regular_2x"
-                android:gravity="end"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="8014"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tvPaymentCardNumberSecondPart"-->
+<!--                android:textSize="@dimen/text_regular_2x"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold"-->
+<!--                tools:text="@string/lbl_four_digit"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tvPaymentCardNumberThirdPart"-->
+<!--                android:textSize="@dimen/text_regular_2x"-->
+<!--                android:gravity="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold"-->
+<!--                tools:text="@string/lbl_four_digit"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/tvPaymentCardNumberFourthPart"-->
+<!--                android:textSize="@dimen/text_regular_2x"-->
+<!--                android:gravity="end"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold"-->
+<!--                tools:text="8014"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"/>-->
         </LinearLayout>
 
         <LinearLayout
@@ -108,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCardHolderName"
                 android:textSize="@dimen/text_regular_2x"
                 android:textColor="@color/white"
                 android:textStyle="bold"
@@ -116,6 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvExpiresDate"
                 android:textSize="@dimen/text_regular_2x"
                 android:gravity="end"
                 android:textColor="@color/white"

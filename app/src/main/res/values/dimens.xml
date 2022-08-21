@@ -84,7 +84,7 @@
     <dimen name="civ_margin_top">64dp</dimen>
     <dimen name="menu_margin_top">48dp</dimen>
     <dimen name="menu_gap">32dp</dimen>
-    <dimen name="margin_movie_seats">6dp</dimen>
+    <dimen name="margin_movie_seats">3dp</dimen>
     <dimen name="height_custom_curve_linearl_ayout">40dp</dimen>
     <dimen name="height_custom_curve_view">20dp</dimen>
 

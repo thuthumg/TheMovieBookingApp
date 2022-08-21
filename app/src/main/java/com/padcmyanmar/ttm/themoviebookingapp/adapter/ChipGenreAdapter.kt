@@ -1,12 +1,17 @@
 package com.padcmyanmar.ttm.themoviebookingapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.viewholders.ChipGenreViewHolder
 
 class ChipGenreAdapter : RecyclerView.Adapter<ChipGenreViewHolder>() {
+
+    private var mGenreVOs:List<GenreVO> = arrayListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChipGenreViewHolder {
 
         val view = LayoutInflater.from(parent.context)
@@ -17,10 +22,22 @@ class ChipGenreAdapter : RecyclerView.Adapter<ChipGenreViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ChipGenreViewHolder, position: Int) {
+        if(mGenreVOs.isNotEmpty())
+        {
+            holder.bindData(mGenreVOs[position])
+        }
     }
 
     override fun getItemCount(): Int {
 
-        return 5
+        return mGenreVOs.count()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(mGenreVOs:List<GenreVO>){
+        this.mGenreVOs = mGenreVOs
+        notifyDataSetChanged()
+
+
     }
 }

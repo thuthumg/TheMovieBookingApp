@@ -43,7 +43,7 @@
     <string name="lbl_amount">$ 926.21</string>
     <string name="lbl_visa">VISA</string>
     <string name="lbl_three_digit">* * *</string>
-    <string name="lbl_four_digit">* * * *</string>
+    <string name="lbl_four_digit">* * * *   * * * *    * * * *    * * * *</string>
     <string name="lbl_card_holder_title">CARD HOLDER</string>
     <string name="lbl_expires">EXPIRES</string>
     <string name="lbl_get_your_ticket">Get your ticket</string>
@@ -82,5 +82,11 @@
     <string name="lbl_2">2</string>
     <string name="lbl_d_row_5_6">D Row/ 5,6</string>
     <string name="lbl_buy_ticket_for_20_00">Buy Ticket for $20.00</string>
+    <string name="txt_booking_time_error">Please Choose the movie booking time</string>
+
+    <string name="txt_buy_ticket">Buy Ticket for $ %1$s</string>
+    <string name="txt_snack_amount"> $ %1$s</string>
+    <string name="txt_pay_amount">Pay $ %1$s</string>
+    <string name="txt_sub_total_pay_amount">Sub total: $ %1$s</string>
 
 </resources>

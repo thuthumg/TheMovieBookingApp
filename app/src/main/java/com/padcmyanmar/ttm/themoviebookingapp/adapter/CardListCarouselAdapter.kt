@@ -1,16 +1,24 @@
 package com.padcmyanmar.ttm.themoviebookingapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
 import com.github.islamkhsh.CardSliderAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.R
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CardsVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.PaymentCardDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.viewholders.CardListCarouselViewHolder
 
 class CardListCarouselAdapter(private val onDelegate: PaymentCardDelegate):  CardSliderAdapter<CardListCarouselViewHolder>() {
 
-    override fun getItemCount() = 10
+    var mCardsVOList: List<CardsVO> = listOf()
+
+
+    override fun getItemCount(): Int {
+        return mCardsVOList.count()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardListCarouselViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_card_list, parent, false)
@@ -18,7 +26,16 @@ class CardListCarouselAdapter(private val onDelegate: PaymentCardDelegate):  Car
     }
 
     override fun bindVH(holder: CardListCarouselViewHolder, position: Int) {
+        if(mCardsVOList.isNotEmpty())
+        {
+            holder.bindData(mCardsVOList[position])
+        }
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(cardsVOList: List<CardsVO>){
+        this.mCardsVOList = cardsVOList
+        notifyDataSetChanged()
     }
 
 

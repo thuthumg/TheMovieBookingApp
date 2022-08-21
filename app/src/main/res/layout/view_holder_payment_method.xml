@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_centerVertical="true"
         android:id="@+id/ivCreditCard"
         android:padding="@dimen/margin_medium_2"
-        app:srcCompat="@drawable/ic_credit_card"
+        tools:srcCompat="@drawable/ic_default_credit_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -25,14 +26,14 @@
             android:id="@+id/tvPaymentTitle"
             android:textStyle="bold"
             android:textSize="@dimen/text_regular"
-            android:text="@string/lbl_credit_card"
+            tools:text="@string/lbl_credit_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPaymentDesc"
+            android:id="@+id/tvPaymentDescription"
             android:textColor="@color/whiteDark9"
             android:textSize="@dimen/text_smaller"
-            android:text="@string/lbl_visa_master_card_jcb"
+            tools:text="@string/lbl_visa_master_card_jcb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

@@ -45,16 +45,16 @@
                     android:orientation="horizontal">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/civProfileImage"
-                        android:layout_width="@dimen/width_movie_list_profile"
-                        android:layout_height="@dimen/height_movie_list_profile"
+                        android:id="@+id/civMainContentProfile"
+                        android:layout_width="@dimen/width_drawer_profile"
+                        android:layout_height="@dimen/width_drawer_profile"
                         android:padding="@dimen/margin_medium"
                         android:src="@drawable/pic_profile"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="@dimen/civ_border_width_circle_img_view" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvProfileName"
+                        android:id="@+id/tvMainContentProfileName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

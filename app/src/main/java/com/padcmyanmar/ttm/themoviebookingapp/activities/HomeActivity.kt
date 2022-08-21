@@ -1,29 +1,42 @@
 package com.padcmyanmar.ttm.themoviebookingapp.activities
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
+
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
-import com.google.android.material.navigation.NavigationView
+import com.bumptech.glide.Glide
+
 import com.google.android.material.snackbar.Snackbar
+import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.R
+import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
+import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.UserDataVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
+import com.padcmyanmar.ttm.themoviebookingapp.utils.BASE_URL
+import com.padcmyanmar.ttm.themoviebookingapp.utils.SUCCESS_CODE
 import com.padcmyanmar.ttm.themoviebookingapp.viewpods.ShowingMovieListViewPod
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.toolBar
 import kotlinx.android.synthetic.main.activity_home.viewPodComingSoon
 import kotlinx.android.synthetic.main.activity_home.viewPodNowShowing
-import kotlinx.android.synthetic.main.activity_movie_list.*
+
 
 class HomeActivity : AppCompatActivity(), MovieListDelegate {
-    lateinit var nowShowingMovieListViewPod : ShowingMovieListViewPod
-    lateinit var comingSoonMovieListViewPod : ShowingMovieListViewPod
-    var actionBarDrawerToggle : ActionBarDrawerToggle ?= null
+
+
+    private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
+    lateinit var nowShowingMovieListViewPod: ShowingMovieListViewPod
+    lateinit var comingSoonMovieListViewPod: ShowingMovieListViewPod
+    var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    var mGenres: List<GenreVO> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -32,15 +45,90 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
         setUpDrawer()
         setUpViewPods()
         setUpClickListener()
-
+        requestData()
 
 
     }
 
+    private fun requestData() {
+        mMovieBookingModel.getProfile(
+            onSuccess = { userDataVO ->
+
+                bindDataAtNavigationView(userDataVO)
+                bindDataAtMainContent(userDataVO)
+
+            },
+            onFailure = {
+                showToast(it)
+            }
+        )
+        //get genres
+        mMovieBookingModel.getGenres(
+            onSuccess = {
+                mGenres = it
+                Log.d("home", "check genres list = " + mGenres.size)
+                nowShowingMovieListViewPod.setGenresData(mGenres)
+                comingSoonMovieListViewPod.setGenresData(mGenres)
+            },
+            onFailure = {
+                showToast(it)
+            }
+        )
+
+        //Now Playing Movies
+        mMovieBookingModel.getNowPlayingMovies(
+            onSuccess = {
+                nowShowingMovieListViewPod.setData(it)
+
+            },
+            onFailure = {
+                // show error message
+                showToast(it)
+            }
+        )
+
+        //Coming Soon Movies
+        mMovieBookingModel.getComingSoonMovies(
+            onSuccess = {
+                comingSoonMovieListViewPod.setData(it)
+
+            },
+            onFailure = {
+                // show error message
+                showToast(it)
+            }
+        )
+
+
+    }
+
+    private fun bindDataAtMainContent(userDataVO: UserDataVO) {
+        Glide.with(this)
+            .load("$BASE_URL${userDataVO.profileImage}")
+            .placeholder(R.drawable.pic_profile)
+            .into(civMainContentProfile)
+
+        tvMainContentProfileName.text = userDataVO.name
+
+
+    }
+
+    private fun bindDataAtNavigationView(userDataVO: UserDataVO) {
+        tvName.text = userDataVO.name
+        tvEmail.text = userDataVO.email
+
+        Glide.with(this)
+            .load("$BASE_URL${userDataVO.profileImage}")
+            .placeholder(R.drawable.pic_profile)
+            .into(civProfile)
+    }
+
     private fun setUpDrawer() {
         setSupportActionBar(toolBar)
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolBar,
-            R.string.lbl_open,R.string.lbl_close)
+        actionBarDrawerToggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolBar,
+            R.string.lbl_open, R.string.lbl_close
+        )
         actionBarDrawerToggle?.let {
             drawerLayout.addDrawerListener(it)
             it.syncState()
@@ -67,51 +155,66 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
 
     private fun setUpClickListener() {
         civProfile.setOnClickListener {
-            Snackbar.make(window.decorView,"Profile Picture Tapped",Snackbar.LENGTH_LONG).show()
+            Snackbar.make(window.decorView, "Profile Picture Tapped", Snackbar.LENGTH_LONG).show()
         }
 
         llPromotionCode.setOnClickListener {
-            Toast.makeText(this,"This is promotion code menu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is promotion code menu", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
 
         llTranslate.setOnClickListener {
-            Toast.makeText(this,"This is translate menu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is translate menu", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
 
         llTermsOfServices.setOnClickListener {
-            Toast.makeText(this,"This is term of services menu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is term of services menu", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         llHelp.setOnClickListener {
-            Toast.makeText(this,"This is Help Menu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is Help Menu", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         llRateUs.setOnClickListener {
-            Toast.makeText(this,"This is Rate Us Menu", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is Rate Us Menu", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         llLogout.setOnClickListener {
-            Toast.makeText(this,"This is log out", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "This is log out", Toast.LENGTH_SHORT).show()
             //Logic
             drawerLayout.closeDrawer(GravityCompat.START)
         }
+
+        //for logout
+        llLogout.setOnClickListener {
+            logoutFunction()
+        }
     }
 
-    override fun onTapDetail() {
-
-        startActivity(Intent(this,MovieListDetailActivity::class.java))
+    private fun logoutFunction() {
+        mMovieBookingModel.logoutCall(
+            onSuccess = { successResponse ->
+                if (successResponse.first == SUCCESS_CODE) {
+                    finish()
+                    //  showToast(successResponse.second)
+                } else {
+                    //  showToast(successResponse.second)
+                }
+            },
+            onFailure = { failMsg ->
+                showToast(failMsg)
+            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -119,5 +222,15 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun showToast(it: String) {
+
+        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+
+
+    }
+
+    override fun onTapDetail(movieId: Int) {
+        startActivity(MovieListDetailActivity.newIntent(this, movieId))
+    }
 
 }

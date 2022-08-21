@@ -13,6 +13,7 @@ data class CardsVO(
     @SerializedName("expiration_date")
     val expirationDate: String?,
     @SerializedName("card_type")
-    val cardType: String?
+    val cardType: String?,
+    var isSelected:Boolean = false
 
 )

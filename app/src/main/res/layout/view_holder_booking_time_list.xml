@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/llStartTime"
         android:gravity="center"
         android:padding="@dimen/time_view_padding"
         android:orientation="horizontal"
@@ -16,6 +17,7 @@
         android:layout_height="@dimen/height_available_time">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStartTime"
             android:textColor="@color/blackLight5"
             android:textStyle="bold"
             android:textSize="@dimen/text_regular"
@@ -23,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv12HoursFormat"
             android:textColor="@color/blackLight5"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/margin_small"

@@ -67,12 +67,14 @@
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivMoviePicture"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/height_img_voucher"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/pic_now_showing" />
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMovieTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="@dimen/margin_medium"
@@ -138,6 +140,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBookingNumber"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -167,6 +170,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvShowTimeDate"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -196,6 +200,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvTheaterName"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
@@ -254,6 +259,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvRow"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -283,6 +289,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvCheckOutSeats"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -312,6 +319,7 @@
                                 android:textSize="@dimen/text_regular_2x" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPrice"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"

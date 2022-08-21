@@ -44,6 +44,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMovieTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
@@ -54,6 +55,7 @@
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCinemaName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
@@ -63,6 +65,7 @@
                     android:textSize="@dimen/text_regular" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBookingDateTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
@@ -103,6 +106,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_card_medium_2"
                     android:layout_marginStart="@dimen/margin_card_medium_2"
                     android:layout_marginEnd="@dimen/margin_card_medium_2"
                     android:orientation="horizontal">
@@ -113,6 +117,7 @@
                         android:src="@drawable/background_available" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textSize="@dimen/text_small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_card_medium_2"
@@ -125,6 +130,7 @@
                         android:src="@drawable/background_reserved" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textSize="@dimen/text_small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_card_medium_2"
@@ -137,6 +143,7 @@
                         android:src="@drawable/background_selection" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:textSize="@dimen/text_small"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_card_medium_2"
@@ -170,6 +177,7 @@
                         android:textSize="@dimen/text_regular" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTicket"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_card_medium_2"
@@ -201,13 +209,14 @@
                         android:textSize="@dimen/text_regular" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSeats"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_card_medium_2"
                         android:layout_marginTop="@dimen/margin_card_medium_2"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="@string/lbl_d_row_5_6"
+                        tools:text="@string/lbl_d_row_5_6"
                         android:textColor="@color/blackLight5"
                         android:textSize="@dimen/text_regular"
                         android:textStyle="bold" />

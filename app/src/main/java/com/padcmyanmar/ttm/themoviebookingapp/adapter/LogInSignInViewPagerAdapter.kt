@@ -7,7 +7,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.delegate.LogInSignInDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.fragments.LogInFragment
 import com.padcmyanmar.ttm.themoviebookingapp.fragments.SignInFragment
 
-class LogInSignInViewPagerAdapter(fragmentActivity: FragmentActivity,var mDelegate: LogInSignInDelegate) :
+class LogInSignInViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount(): Int = 2
 
@@ -16,16 +16,16 @@ class LogInSignInViewPagerAdapter(fragmentActivity: FragmentActivity,var mDelega
         return when (position) {
             0 -> {
 
-                return LogInFragment(mDelegate)
+                return LogInFragment()
             }
 
             1 -> {
 
-                return SignInFragment(mDelegate)
+                return SignInFragment()
             }
             else -> {
 
-                return LogInFragment(mDelegate)
+                return LogInFragment()
             }
         }
 

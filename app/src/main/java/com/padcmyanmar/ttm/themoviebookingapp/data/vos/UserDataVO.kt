@@ -1,6 +1,7 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.vos
 
 import com.google.gson.annotations.SerializedName
+import java.util.regex.Pattern
 
 data class UserDataVO (
     @SerializedName("id")
@@ -17,6 +18,4 @@ data class UserDataVO (
     val profileImage: String?,
     @SerializedName("cards")
     val cards: List<CardsVO>?
-
-
 )

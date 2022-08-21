@@ -5,6 +5,8 @@ import com.padcmyanmar.ttm.themoviebookingapp.data.vos.UserDataVO
 
 data class RegisterDataResponse(
 
+    @SerializedName("code")
+    val code: Int?,
     @SerializedName("message")
     val message: String?,
     @SerializedName("token")

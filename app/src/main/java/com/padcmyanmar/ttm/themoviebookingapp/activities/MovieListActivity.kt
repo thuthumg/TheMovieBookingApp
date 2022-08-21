@@ -50,7 +50,7 @@ class MovieListActivity : AppCompatActivity() , MovieListDelegate {
 
     }
 
-    override fun onTapDetail() {
+    override fun onTapDetail(movieId: Int) {
 
         startActivity(Intent(this,MovieListDetailActivity::class.java))
     }

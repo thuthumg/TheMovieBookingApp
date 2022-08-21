@@ -1,13 +1,18 @@
 package com.padcmyanmar.ttm.themoviebookingapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.padcmyanmar.ttm.themoviebookingapp.R
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CinemaDayTimeslotVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.AvailableTicketDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.viewholders.TicketBookingTimeItemViewHolder
 
 class TicketBookingTimeItemAdapter(private var mDelegate: AvailableTicketDelegate) : RecyclerView.Adapter<TicketBookingTimeItemViewHolder>() {
+
+    private var mCinemaDayTimeslotVOs:List<CinemaDayTimeslotVO> = listOf()
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -20,9 +25,20 @@ class TicketBookingTimeItemAdapter(private var mDelegate: AvailableTicketDelegat
 
     override fun onBindViewHolder(holder: TicketBookingTimeItemViewHolder, position: Int) {
 
+        if(mCinemaDayTimeslotVOs.isNotEmpty())
+        {
+            holder.bindData(mCinemaDayTimeslotVOs[position])
+        }
+
     }
 
     override fun getItemCount(): Int {
-       return 6
+       return mCinemaDayTimeslotVOs.count()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(cinemaDayTimeslotVOs:List<CinemaDayTimeslotVO>){
+        this.mCinemaDayTimeslotVOs = cinemaDayTimeslotVOs
+        notifyDataSetChanged()
     }
 }

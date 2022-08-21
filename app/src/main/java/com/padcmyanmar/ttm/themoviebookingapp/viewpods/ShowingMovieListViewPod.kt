@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
 import com.padcmyanmar.ttm.themoviebookingapp.adapter.ShowingMovieListAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
 import kotlinx.android.synthetic.main.view_pod_now_showing.view.*
@@ -40,5 +42,13 @@ class ShowingMovieListViewPod @JvmOverloads constructor(
         rvMovieList.layoutManager =
             LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
 
+    }
+
+    fun setData(movieList: List<MovieVO>){
+        mShowingMovieListAdapter.setNewData(movieList)
+    }
+
+    fun setGenresData(mGenres: List<GenreVO>){
+        mShowingMovieListAdapter.setNewGenreData(mGenres)
     }
 }

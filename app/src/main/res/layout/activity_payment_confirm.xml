@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvPaymentAmountTitleLabel"
                     android:layout_marginStart="@dimen/margin_medium_2"
-                    android:text="@string/lbl_amount"
+                    tools:text="@string/lbl_amount"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_heading_1x"
                     android:textStyle="bold" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
 
         <LinearLayout
             android:layout_marginTop="8dp"
@@ -14,24 +14,24 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:textColor="@color/blackLight4"
-                android:id="@+id/tvPaymentTitle"
+                android:id="@+id/tvSnackTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/lbl_combo_set_m"
+                tools:text="@string/lbl_combo_set_m"
                 android:textSize="@dimen/text_regular"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvPaymentDesc"
+                android:id="@+id/tvSnackDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/lbl_payment_desc"
+                tools:text="@string/lbl_payment_desc"
                 android:textColor="@color/whiteDark9"
                 android:textSize="@dimen/text_smaller" />
 
@@ -46,20 +46,20 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvPaymentPrice"
+                android:id="@+id/tvSnackPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_medium"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:gravity="center"
-                android:text="@string/lbl_price"
+                tools:text="@string/lbl_price"
                 android:textColor="@color/blackLight3"
                 android:textSize="@dimen/text_regular"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/llComboSet"
+                android:id="@+id/llQtyPlusMinus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium"
@@ -90,6 +90,7 @@
                     android:gravity="center">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvQty"
                         android:textColor="@color/blackLight4"
                         android:textSize="@dimen/text_small"
                         android:layout_width="wrap_content"

@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llDate"
     android:gravity="center"
     android:orientation="vertical"
     android:layout_width="@dimen/width_date_item"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:textSize="@dimen/text_regular_2x"
+        android:id="@+id/tvDate"
+        android:textSize="@dimen/text_regular"
         android:padding="@dimen/margin_medium"
         android:textColor="@android:color/darker_gray"
-        android:text="We"
+        tools:text="We"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:padding="@dimen/margin_medium"
-        android:textSize="@dimen/text_regular_2x"
+        android:id="@+id/tvDay"
+        tools:padding="@dimen/margin_medium"
+        tools:textSize="@dimen/text_regular"
         android:textColor="@android:color/darker_gray"
-        android:text="10"
+        tools:text="10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

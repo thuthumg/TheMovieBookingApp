@@ -11,13 +11,14 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_collapsing_toolbar_movie_details"
             app:collapsedTitleTextColor="@color/white"
             app:contentScrim="@color/colorPrimaryDark"
             app:expandedTitleTextColor="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="Detective Pikachu">
+            tools:title="Detective Pikachu">
 
 
             <FrameLayout
@@ -37,6 +38,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMovieDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -60,13 +62,13 @@
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvMovieName"
+                        android:id="@+id/tvMovieDetailName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_medium_2"
                         android:layout_marginTop="@dimen/margin_medium_3"
                         android:layout_marginEnd="@dimen/margin_medium_2"
-                        android:text="Detective Pikachu"
+                        tools:text="Detective Pikachu"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_heading_1x"
                         android:textStyle="bold" />
@@ -107,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_medium_2"
-                android:text="1h 45m"
+                tools:text="1h 45m"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/text_regular_2x"
                 android:textStyle="bold" />
@@ -124,11 +126,12 @@
                 android:rating="3.5" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvRatingCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_card_medium_2"
                 android:layout_toEndOf="@id/rbMovieRating"
-                android:text="IMDb 6.6"
+                tools:text="IMDb 6.6"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/text_regular_2x"
                 android:textStyle="bold" />

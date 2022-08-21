@@ -53,6 +53,8 @@ tools:context=".activities.AddCardActivity">
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="phone"
+                    android:id="@+id/tvCardNumberValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/lbl_card_number"
@@ -72,6 +74,7 @@ tools:context=".activities.AddCardActivity">
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tvCardHolderValue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/lbl_card_holder"
@@ -98,6 +101,7 @@ tools:context=".activities.AddCardActivity">
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tvExpirationDateValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/lbl_expiration_date"
@@ -117,6 +121,7 @@ tools:context=".activities.AddCardActivity">
                     app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tvCVCValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/lbl_cvc"
