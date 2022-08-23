@@ -20,7 +20,15 @@ class MovieSeatViewHolder(
     init {
 
         itemView.setOnClickListener {
-            mMovieSeatVO?.let { it1 -> mDelegate.onTapSeating(it1,position,movieSeatCount) }
+            mMovieSeatVO?.let { movieSeatVO -> mDelegate.onTapSeating(
+                movieSeatVO.id,
+                movieSeatVO.symbol,
+                movieSeatVO.isSelected,
+                movieSeatVO.price,
+                movieSeatVO.isMovieSeatAvailable(),
+                position,
+                movieSeatCount
+            ) }
 //            when {
 //                mMovieSeatVO?.isMovieSeatAvailable() == true -> {
 //                    itemView.tvMovieSeatTitle.visibility = View.VISIBLE

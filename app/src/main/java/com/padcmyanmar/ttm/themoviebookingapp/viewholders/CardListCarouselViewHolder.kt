@@ -20,6 +20,8 @@ class CardListCarouselViewHolder(itemView: View, private val onDelegate: Payment
 
 
 
+
+
     }
 
     fun bindData(cardsVO: CardsVO) {

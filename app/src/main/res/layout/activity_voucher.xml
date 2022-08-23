@@ -71,7 +71,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/height_img_voucher"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/pic_now_showing" />
+                            tools:srcCompat="@drawable/pic_now_showing" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvMovieTitle"
@@ -80,7 +80,7 @@
                             android:paddingStart="@dimen/margin_medium"
                             android:paddingTop="@dimen/margin_medium"
                             android:paddingEnd="@dimen/margin_medium"
-                            android:text="Detective Pikachu"
+                            tools:text="Detective Pikachu"
                             android:textColor="@color/blackLight5"
                             android:textSize="@dimen/text_regular_3x"
                             android:textStyle="bold" />
@@ -146,7 +146,7 @@
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="GC1547219308"
+                                tools:text="GC1547219308"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -176,7 +176,7 @@
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="7:00 PM- 10 May"
+                                tools:text="7:00 PM- 10 May"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -206,7 +206,7 @@
                                 android:layout_weight="2"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="Galaxy Cinema - Golden City"
+                                tools:text="Galaxy Cinema - Golden City"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -265,7 +265,7 @@
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="D"
+                                tools:text="D"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -295,7 +295,7 @@
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="5,6"
+                                tools:text="5,6"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -325,7 +325,7 @@
                                 android:layout_weight="1"
                                 android:gravity="end"
                                 android:padding="@dimen/margin_medium"
-                                android:text="$40.00"
+                                tools:text="$40.00"
                                 android:textColor="@color/blackLight5"
                                 android:textSize="@dimen/text_regular_2x"
                                 android:textStyle="bold" />
@@ -361,13 +361,14 @@
                         </FrameLayout>
 
                         <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivBarCode"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/height_img_barcode"
 
                             android:layout_gravity="center"
                             android:layout_margin="@dimen/margin_medium_3"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/pic_barcode" />
+                            tools:srcCompat="@drawable/pic_barcode" />
 
 
                     </LinearLayout>

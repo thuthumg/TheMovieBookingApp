@@ -5,20 +5,27 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.google.zxing.EncodeHintType
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.adapter.CardListCarouselAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CardsVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CheckOutVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.PaymentCardDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.network.request.CheckOutRequest
+import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
 import kotlinx.android.synthetic.main.activity_payment_confirm.*
 import kotlinx.android.synthetic.main.activity_payment_confirm.btnBack
 import kotlinx.android.synthetic.main.activity_snack.*
+import kotlinx.android.synthetic.main.activity_voucher.*
 import java.util.*
 
 
@@ -107,6 +114,7 @@ class PaymentConfirmActivity : AppCompatActivity(), PaymentCardDelegate {
                 showError(it)
             }
         )
+
     }
 
     private fun getIntentParam() {
@@ -130,6 +138,7 @@ class PaymentConfirmActivity : AppCompatActivity(), PaymentCardDelegate {
         cardListCarouselAdapter = CardListCarouselAdapter(this)
         carouselRecyclerview.adapter = cardListCarouselAdapter
 
+
     }
 
 
@@ -138,21 +147,37 @@ class PaymentConfirmActivity : AppCompatActivity(), PaymentCardDelegate {
             // startActivity(Intent(this,VoucherActivity::class.java))
             //  sCheckOutRequest?.cardId = 1196
 
-            val str: String = g.toJson(sCheckOutRequest)
-            startActivity(
-                VoucherActivity.newIntent(
-                    this,
-                    checkOutRequest = str,
-                    movieName = movieName,
-                    movieTimeSlotValue = timeslotValue,
-                    cinemaName = cinemaName,
-                    intentParamMovieBookingDate = bookingDate,
-                    intentParamMovieBookingDay = bookingDay,
-                    moviePic = moviePic
 
 
-                )
-            )
+
+            mMovieBookingModel.checkOut(sCheckOutRequest,
+                onSuccess = { checkOutVO, message ->
+                   // setUpUI(checkOutVO)
+                     val str: String = g.toJson(checkOutVO)
+                    startActivity(
+                        VoucherActivity.newIntent(
+                            this,
+                            checkOutRequest = str,
+                            movieName = movieName,
+                            movieTimeSlotValue = timeslotValue,
+                            cinemaName = cinemaName,
+                            intentParamMovieBookingDate = bookingDate,
+                            intentParamMovieBookingDay = bookingDay,
+                            moviePic = moviePic
+
+
+                        )
+                    )
+
+                },
+                onFailure = {
+                    Log.d("VoucherActivity", "Fail ! = $it")
+                    showError(it)
+                })
+
+
+
+
         }
         btnBack.setOnClickListener {
             onBackPressed()

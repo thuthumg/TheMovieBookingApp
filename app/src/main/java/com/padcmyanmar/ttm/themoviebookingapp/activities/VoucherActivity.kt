@@ -2,25 +2,32 @@ package com.padcmyanmar.ttm.themoviebookingapp.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.Color
+
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.padcmyanmar.ttm.themoviebookingapp.R
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.Writer
+import com.google.zxing.common.BitMatrix
+import com.google.zxing.oned.Code128Writer
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
-import com.padcmyanmar.ttm.themoviebookingapp.data.vos.BookingDate
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CheckOutVO
 import com.padcmyanmar.ttm.themoviebookingapp.network.request.CheckOutRequest
 import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
-import kotlinx.android.synthetic.main.activity_movie_list_detail.*
-import kotlinx.android.synthetic.main.activity_seating_plan.*
 import kotlinx.android.synthetic.main.activity_voucher.*
 import kotlinx.android.synthetic.main.activity_voucher.tvMovieTitle
-import java.io.Serializable
+import java.util.*
+import kotlin.collections.HashMap
+
 
 class VoucherActivity : AppCompatActivity() {
     companion object {
@@ -60,8 +67,8 @@ class VoucherActivity : AppCompatActivity() {
     private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
 
     // private var checkOutRequest:CheckOutRequest? = null
-    private var checkOutRequest: String? = null
-    private var scheckOutRequest: CheckOutRequest? = null
+    private var checkOutVO: String? = null
+    private var scheckOutRequest: CheckOutVO? = null
     private var movieName: String? = null
     private var timeslotValue: String? = null
     private var cinemaName: String? = null
@@ -73,11 +80,10 @@ class VoucherActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_voucher)
+        setContentView(com.padcmyanmar.ttm.themoviebookingapp.R.layout.activity_voucher)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         getIntentParam()
-        requestData()
         btnClose.setOnClickListener {
             startActivity(Intent(this, WelcomeLoginActivity::class.java))
             finish()
@@ -85,50 +91,76 @@ class VoucherActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestData() {
-        mMovieBookingModel.checkOut(scheckOutRequest,
-            onSuccess = { checkOutVO, message ->
-                setUpUI(checkOutVO)
+//    private fun requestData() {
+//        mMovieBookingModel.checkOut(scheckOutRequest,
+//            onSuccess = { checkOutVO, message ->
+//                setUpUI(checkOutVO)
+//
+//                showToast(message)
+//            },
+//            onFailure = {
+//                Log.d("VoucherActivity", "Fail ! = $it")
+//                showToast(it)
+//            })
+//    }
 
-                showToast(message)
-            },
-            onFailure = {
-                Log.d("VoucherActivity", "Fail ! = $it")
-                showToast(it)
-            })
-    }
-
-    private fun setUpUI(checkOutVO: CheckOutVO) {
+    private fun setUpUI(checkOutVO: CheckOutVO?) {
         Glide.with(this)
             .load("$IMAGE_BASE_URL$moviePic")
             .into(ivMoviePicture)
 
         tvMovieTitle.text = movieName
-        tvBookingNumber.text = checkOutVO.bookingNo
-        tvShowTimeDate.text = "$timeslotValue- $bookingDate $bookingDay"
+        tvBookingNumber.text = checkOutVO?.bookingNo
+        tvShowTimeDate.text = "$timeslotValue - $bookingDay $bookingDate "
         tvTheaterName.text = cinemaName
-        tvRow.text = checkOutVO.row
-        tvCheckOutSeats.text = checkOutVO.seat
-        tvPrice.text = checkOutVO.total
+        tvRow.text = checkOutVO?.row
+        tvCheckOutSeats.text = checkOutVO?.seat
+        tvPrice.text = checkOutVO?.total
 
+        val hintMap: MutableMap<EncodeHintType, ErrorCorrectionLevel> = HashMap()
+        hintMap[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.H
+        checkOutVO?.qrCode?.let { generateBarCode(it) }
+       // generateBarCode(checkOutVO.qrCode)
     }
 
 
     private fun getIntentParam() {
 
-        checkOutRequest = intent.getStringExtra(CHECKOUT_REQUEST_ID)
+        checkOutVO = intent.getStringExtra(CHECKOUT_REQUEST_ID)
         movieName = intent?.getStringExtra(MOVIE_NAME)
         timeslotValue = intent?.getStringExtra(TIMESLOT_VALUE)
         cinemaName = intent?.getStringExtra(CINEMA_NAME)
         bookingDate = intent?.getStringExtra(BOOKING_DATE)
         bookingDay = intent?.getStringExtra(BOOKING_DAY)
         moviePic = intent?.getStringExtra(MOVIE_PIC)
-        scheckOutRequest = g.fromJson(checkOutRequest, CheckOutRequest::class.java)
+        scheckOutRequest = g.fromJson(checkOutVO, CheckOutVO::class.java)
+        setUpUI(scheckOutRequest)
+    }
+
+    private fun generateBarCode(s: String) {
+        try {
+         //   val productId = editTextProductId!!.text.toString()
+            val hintMap: Hashtable<EncodeHintType, ErrorCorrectionLevel> =
+                Hashtable<EncodeHintType, ErrorCorrectionLevel>()
+            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L)
+            val codeWriter: Writer
+            codeWriter = Code128Writer()
+            val byteMatrix: BitMatrix =
+                codeWriter.encode(s, BarcodeFormat.CODE_128, 400, 200, hintMap)
+            val width = byteMatrix.width
+            val height = byteMatrix.height
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            for (i in 0 until width) {
+                for (j in 0 until height) {
+                    bitmap.setPixel(i, j, if (byteMatrix[i, j]) Color.BLACK else Color.WHITE)
+                }
+            }
+            ivBarCode.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
+        }
 
     }
 
-    private fun showToast(it: String) {
-        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-    }
 
 }

@@ -120,6 +120,7 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
         val monthString: String = bookingDate.month.toString().substring(0, 1).toUpperCase() +
                 bookingDate.month.toString().substring(1).toLowerCase()
 
+        //auto select bind data
         intentParamBookingDate = dayOfTheWeek
         intentParamBookingDay = day
 
@@ -228,42 +229,54 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
     }
 
     override fun onTapSeating(
-        movieSeatVO: MovieSeatVO?,
+        movieSeatId:Int?,
+        movieSeatSymbol:String?,
+        movieSeatSelected:Boolean?,
+        movieSeatPrice:Int?,
+        movieSeatAvailable:Boolean?,
         positionParam: Int?,
         movieSeatCount: Int?
     ) {
 
-        if (movieSeatVO?.id == positionParam?.let { mMovieSeatVOs.getOrNull(it)?.id } &&
-            movieSeatVO?.symbol == positionParam?.let { mMovieSeatVOs.getOrNull(it)?.symbol } &&
-            movieSeatVO?.isMovieSeatAvailable() == true) {
-            if (movieSeatVO.isSelected) {
-                movieSeatVO.isSelected = false
+       mMovieSeatVOs.forEach {
 
-                val iterator = movieSeatSelectedData.iterator()
-                outerLoop@ while (iterator.hasNext()) {
-                    val item = iterator.next()
-                    if (item == movieSeatVO.seat_name) {
-                        tvTicketCount -= 1
-                        iterator.remove()
-                        tvBuyTicketAmt -= (movieSeatVO.price?.times(100.0))?.roundToInt()
-                            ?.div(100.0) ?: 0.00
-                        break@outerLoop
-                    }
-                }
+           if(movieSeatId == it.id && movieSeatSymbol == it.symbol && it.isMovieSeatAvailable())
+           {
+               if(it.isSelected)
+               {
+                   it.isSelected = false
+
+                   val iterator = movieSeatSelectedData.iterator()
+                   outerLoop@ while (iterator.hasNext()) {
+                       val item = iterator.next()
+                       if (item == it.seat_name) {
+                           tvTicketCount -= 1
+                           iterator.remove()
+                           tvBuyTicketAmt -= (it.price?.times(100.0))?.roundToInt()
+                               ?.div(100.0) ?: 0.00
+                           break@outerLoop
+                       }
+                   }
+
+               }else{
+                   it.isSelected = true
+
+                   movieSeatSelectedData.add(it.seat_name ?: "")
+                   movieSeatRowSelectedData.add(it.symbol ?: "")
+                   tvTicketCount += 1
+                   it.price?.let {priceData->
+                       tvBuyTicketAmt += (priceData.times(100.0)).roundToInt().div(100.0)
+                   }
+
+               }
 
 
-            } else {
 
-                movieSeatVO.isSelected = true
-                movieSeatSelectedData.add(movieSeatVO.seat_name ?: "")
-                movieSeatRowSelectedData.add(movieSeatVO.symbol ?: "")
-                tvTicketCount += 1
-                movieSeatVO.price?.let {
-                    tvBuyTicketAmt += (movieSeatVO.price.times(100.0)).roundToInt().div(100.0)
-                }
+           }else{
+               it.isSelected = false
+           }
 
-            }
-        }
+       }
 
         tvSeats.text = movieSeatSelectedData?.joinToString(", ") { it } ?: ""
         intentParamRow = movieSeatRowSelectedData?.joinToString(",") { it } ?: ""
