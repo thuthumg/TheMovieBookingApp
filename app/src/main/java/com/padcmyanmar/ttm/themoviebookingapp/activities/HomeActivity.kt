@@ -230,7 +230,12 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
     }
 
     override fun onTapDetail(movieId: Int) {
-        startActivity(MovieListDetailActivity.newIntent(this, movieId))
+        startActivity(
+            MovieListDetailActivity.newIntent(
+                context = this,
+                movieId = movieId
+            )
+        )
     }
 
 }

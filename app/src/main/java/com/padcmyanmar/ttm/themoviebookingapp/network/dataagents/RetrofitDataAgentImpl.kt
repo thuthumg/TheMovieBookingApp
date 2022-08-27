@@ -498,7 +498,7 @@ object RetrofitDataAgentImpl : MovieBookingDataAgent {
         cardHolder: String,
         expirationDate: String,
         cvc: String,
-        onSuccess: (cardNumber:String, message: String) -> Unit,
+        onSuccess: (cardNumber: String, message: String) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mTheMovieBookingApi?.createCard(

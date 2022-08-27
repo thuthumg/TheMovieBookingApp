@@ -33,7 +33,7 @@ object MovieBookingModelImpl : MovieBookingModel {
                 val token = paramData.first
                 val userDataVO = paramData.second
 
-                this.userToken = PARAM_BEARER+token
+                this.userToken = PARAM_BEARER + token
 
                 //to view layer
                 onSuccess(message)
@@ -48,22 +48,22 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (message: String) -> Unit,
         onFailure: (String) -> Unit
     ) {
-       mMovieBookingDataAgent.loginWithEmail(
-           email = email,
-           password = password,
-           onSuccess = { paramData, message ->
+        mMovieBookingDataAgent.loginWithEmail(
+            email = email,
+            password = password,
+            onSuccess = { paramData, message ->
 
-               //process in data layer
-               val token = paramData.first
-               val userDataVO = paramData.second
+                //process in data layer
+                val token = paramData.first
+                val userDataVO = paramData.second
 
-               this.userToken = PARAM_BEARER+token
+                this.userToken = PARAM_BEARER + token
 
-               //to view layer
-               onSuccess(message)
-           },
-           onFailure = onFailure
-       )
+                //to view layer
+                onSuccess(message)
+            },
+            onFailure = onFailure
+        )
     }
 
     override fun getProfile(
@@ -94,20 +94,20 @@ object MovieBookingModelImpl : MovieBookingModel {
         mMovieBookingDataAgent.getComingSoonMovies(onSuccess = onSuccess, onFailure = onFailure)
     }
 
-    override fun logoutCall(onSuccess: (Pair<Int,String>) -> Unit, onFailure: (String) -> Unit) {
+    override fun logoutCall(onSuccess: (Pair<Int, String>) -> Unit, onFailure: (String) -> Unit) {
 
         this.userToken?.let {
             mMovieBookingDataAgent.logoutCall(
                 token = it,
-                onSuccess = { successResponse->
-                            if(successResponse.first == SUCCESS_CODE)
-                            {
-                                this.userToken = null
+                onSuccess = { successResponse ->
+                    if (successResponse.first == SUCCESS_CODE) {
+                        this.userToken = null
 
-                            }
+                    }
                     onSuccess(successResponse)
                 },
-                onFailure = onFailure)
+                onFailure = onFailure
+            )
         }
     }
 
@@ -116,7 +116,11 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (MovieVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getMovieDetails(movieId = movieId, onSuccess = onSuccess,onFailure = onFailure)
+        mMovieBookingDataAgent.getMovieDetails(
+            movieId = movieId,
+            onSuccess = onSuccess,
+            onFailure = onFailure
+        )
     }
 
 
@@ -128,7 +132,8 @@ object MovieBookingModelImpl : MovieBookingModel {
         mMovieBookingDataAgent.getCreditsByMovie(
             movieId = movieId,
             onSuccess = onSuccess,
-            onFailure = onFailure)
+            onFailure = onFailure
+        )
     }
 
     override fun getGenres(onSuccess: (List<GenreVO>) -> Unit, onFailure: (String) -> Unit) {
@@ -199,13 +204,13 @@ object MovieBookingModelImpl : MovieBookingModel {
         cardHolder: String,
         expirationDate: String,
         cvc: String,
-        onSuccess: (cardNumber:String, message: String) -> Unit,
+        onSuccess: (cardNumber: String, message: String) -> Unit,
         onFailure: (String) -> Unit
     ) {
         this.userToken?.let {
             mMovieBookingDataAgent.createCard(
                 token = it,
-                cardNumber =cardNumber,
+                cardNumber = cardNumber,
                 cardHolder = cardHolder,
                 expirationDate = expirationDate,
                 cvc = cvc,
@@ -216,10 +221,32 @@ object MovieBookingModelImpl : MovieBookingModel {
     }
 
     override fun checkOut(
-        checkOutRequest: CheckOutRequest?,
+        cinemaDayTimeSlotId: Int?,
+        rowData: String?,
+        seatData: String?,
+        movieBookingDateYMDFormat: String?,
+        totalPrice: Int?,
+        movieId: Int?,
+        cinemaId: Int?,
+        cardId: Int?,
+        snackListString: List<SnackVO>?,
         onSuccess: (checkOutVO: CheckOutVO, message: String) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+
+        var checkOutRequest = CheckOutRequest(
+            cinemaDayTimeslotId = cinemaDayTimeSlotId,
+            row = rowData,
+            seatNumber = seatData,
+            bookingDate = movieBookingDateYMDFormat,
+            totalPrice = totalPrice,
+            movieId = movieId,
+            cardId = cardId,
+            cinemaId = cinemaId,
+            snacks = snackListString
+        )
+
         this.userToken?.let {
             checkOutRequest?.let { it1 ->
                 mMovieBookingDataAgent.checkOut(
@@ -232,19 +259,5 @@ object MovieBookingModelImpl : MovieBookingModel {
         }
     }
 
-//    override fun checkOut(
-//        checkOutRequest: CheckOutRequest,
-//        onSuccess: (checkOutVO: CheckOutVO, message: String) -> Unit,
-//        onFailure: (String) -> Unit
-//    ) {
-//        this.userToken?.let {
-//            mMovieBookingDataAgent.checkOut(
-//                token = it,
-//                checkOutRequest = checkOutRequest,
-//                onSuccess = onSuccess,
-//                onFailure = onFailure
-//            )
-//        }
-//    }
 
 }

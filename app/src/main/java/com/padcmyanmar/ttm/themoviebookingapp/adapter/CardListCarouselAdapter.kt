@@ -10,8 +10,8 @@ import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CardsVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.PaymentCardDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.viewholders.CardListCarouselViewHolder
 
-class CardListCarouselAdapter(private val onDelegate: PaymentCardDelegate):  CardSliderAdapter<CardListCarouselViewHolder>() {
-
+class CardListCarouselAdapter():  CardSliderAdapter<CardListCarouselViewHolder>() {
+//private val onDelegate: PaymentCardDelegate
     var mCardsVOList: List<CardsVO> = listOf()
 
 
@@ -22,7 +22,7 @@ class CardListCarouselAdapter(private val onDelegate: PaymentCardDelegate):  Car
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardListCarouselViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_card_list, parent, false)
-        return CardListCarouselViewHolder(view,onDelegate)
+        return CardListCarouselViewHolder(view)
     }
 
     override fun bindVH(holder: CardListCarouselViewHolder, position: Int) {

@@ -99,7 +99,15 @@ interface MovieBookingModel {
     )
 
     fun checkOut(
-        checkOutRequest: CheckOutRequest?,
+        cinemaDayTimeSlotId:Int?,
+        rowData:String?,
+        seatData:String?,
+        movieBookingDateYMDFormat:String?,
+        totalPrice:Int?,
+        movieId:Int?,
+        cinemaId:Int?,
+        cardId:Int?,
+        snackListString:List<SnackVO>?,
         onSuccess: (checkOutVO:CheckOutVO, message: String) -> Unit,
         onFailure: (String) -> Unit
     )

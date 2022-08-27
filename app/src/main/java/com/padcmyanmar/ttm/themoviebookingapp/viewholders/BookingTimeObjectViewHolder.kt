@@ -9,7 +9,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.delegate.AvailableTicketDelegate
 import kotlinx.android.synthetic.main.view_holder_ticket_booking_time_item.view.*
 
 
-class TicketBookingTimeItemViewHolder(itemView: View, var mDelegate: AvailableTicketDelegate) : RecyclerView.ViewHolder(itemView) {
+class BookingTimeObjectViewHolder(itemView: View, var mDelegate: AvailableTicketDelegate) : RecyclerView.ViewHolder(itemView) {
     lateinit var mBookingTimeListAdapter: BookingTimeListAdapter
     init {
         setTimeListRecyclerView()

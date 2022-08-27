@@ -10,7 +10,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.data.vos.BookingDate
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.BookingDateDelegate
 import kotlinx.android.synthetic.main.view_holder_date_list.view.*
 
-class DateListViewHolder(itemView: View,private val onDelegate:BookingDateDelegate) : RecyclerView.ViewHolder(itemView) {
+class BookingDateListViewHolder(itemView: View, private val onDelegate:BookingDateDelegate) : RecyclerView.ViewHolder(itemView) {
 
     private var mbookingDate: BookingDate? = null
    // private var mPosition:Int? = null

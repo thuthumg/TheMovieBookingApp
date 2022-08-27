@@ -17,16 +17,15 @@ import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
 import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
 import kotlinx.android.synthetic.main.activity_movie_list_detail.*
-import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 class MovieListDetailActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
 
         private const val MOVIE_ID = "MOVIE_ID"
 
-        fun newIntent(context: Context, movieId: Int):Intent{
+        fun newIntent(context: Context, movieId: Int): Intent {
             val intent = Intent(context, MovieListDetailActivity::class.java)
             intent.putExtra(MOVIE_ID, movieId)
 
@@ -36,7 +35,7 @@ class MovieListDetailActivity : AppCompatActivity() {
 
     lateinit var mCastListAdapter: CastListAdapter
     lateinit var mChipGenreAdapter: ChipGenreAdapter
-    private var movieId:Int? = null
+    private var movieId: Int? = null
     private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
     var mMovieVO: MovieVO? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +62,8 @@ class MovieListDetailActivity : AppCompatActivity() {
     }
 
     private fun requestData(movieId: Int) {
-        mMovieBookingModel.getMovieDetail(movieId = movieId.toString(),
+        mMovieBookingModel.getMovieDetail(
+            movieId = movieId.toString(),
             onSuccess = {
                 bindData(it)
             },
@@ -72,12 +72,12 @@ class MovieListDetailActivity : AppCompatActivity() {
             })
 
         mMovieBookingModel.getCreditsByMovie(movieId = movieId.toString(),
-        onSuccess = {
-            mCastListAdapter.setData(it.first)
-        },
-        onFailure = {
-            showError(it)
-        })
+            onSuccess = {
+                mCastListAdapter.setData(it.first)
+            },
+            onFailure = {
+                showError(it)
+            })
     }
 
     private fun bindData(movieVO: MovieVO) {
@@ -97,11 +97,12 @@ class MovieListDetailActivity : AppCompatActivity() {
         tvPlotSummaryDesc.text = movieVO.overview ?: ""
 
     }
+
     private fun setUpChipGenre() {
 
         mChipGenreAdapter = ChipGenreAdapter()
         rvGenreChip.adapter = mChipGenreAdapter
-        rvGenreChip.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+        rvGenreChip.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun setUpClickListener() {
@@ -111,10 +112,11 @@ class MovieListDetailActivity : AppCompatActivity() {
         btnGetTicket.setOnClickListener {
             startActivity(movieId?.let { it1 ->
                 mMovieVO?.posterPath?.let { it2 ->
-                    TicketBookingTimeActivity.newIntent(this,
-                        it1,
-                        mMovieVO?.title.toString(),
-                        it2
+                    BookingDateTimeActivity.newIntent(
+                        context = this,
+                        movieId = it1,
+                        movieTitle = mMovieVO?.title.toString(),
+                        moviePic = it2
                     )
                 }
             })
@@ -126,7 +128,7 @@ class MovieListDetailActivity : AppCompatActivity() {
         mCastListAdapter = CastListAdapter()
         rvCastList.adapter = mCastListAdapter
         rvCastList.layoutManager =
-            LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
     }
 

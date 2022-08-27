@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.BookingDate
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.BookingDateDelegate
-import com.padcmyanmar.ttm.themoviebookingapp.viewholders.DateListViewHolder
+import com.padcmyanmar.ttm.themoviebookingapp.viewholders.BookingDateListViewHolder
 
-class DateListAdapter(private val onDelegate: BookingDateDelegate) :RecyclerView.Adapter<DateListViewHolder>(){
+class BookingDateListAdapter(private val onDelegate: BookingDateDelegate) :RecyclerView.Adapter<BookingDateListViewHolder>(){
 
     private var mBooingDateList: ArrayList<BookingDate> = arrayListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DateListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookingDateListViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_holder_date_list,parent,false)
 
-    return DateListViewHolder(view, onDelegate =  onDelegate)
+    return BookingDateListViewHolder(view, onDelegate =  onDelegate)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onBindViewHolder(holder: DateListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookingDateListViewHolder, position: Int) {
         if(mBooingDateList.isNotEmpty())
         {
             holder.bindData(mBooingDateList[position],position)

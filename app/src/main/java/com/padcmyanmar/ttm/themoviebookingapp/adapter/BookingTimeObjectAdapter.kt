@@ -7,23 +7,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CinemaDayTimeslotVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.AvailableTicketDelegate
-import com.padcmyanmar.ttm.themoviebookingapp.viewholders.TicketBookingTimeItemViewHolder
+import com.padcmyanmar.ttm.themoviebookingapp.viewholders.BookingTimeObjectViewHolder
 
-class TicketBookingTimeItemAdapter(private var mDelegate: AvailableTicketDelegate) : RecyclerView.Adapter<TicketBookingTimeItemViewHolder>() {
+class BookingTimeObjectAdapter(private var mDelegate: AvailableTicketDelegate) : RecyclerView.Adapter<BookingTimeObjectViewHolder>() {
 
     private var mCinemaDayTimeslotVOs:List<CinemaDayTimeslotVO> = listOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TicketBookingTimeItemViewHolder {
+    ): BookingTimeObjectViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_holder_ticket_booking_time_item,parent,false)
 
-        return TicketBookingTimeItemViewHolder(view,mDelegate)
+        return BookingTimeObjectViewHolder(view,mDelegate)
     }
 
-    override fun onBindViewHolder(holder: TicketBookingTimeItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookingTimeObjectViewHolder, position: Int) {
 
         if(mCinemaDayTimeslotVOs.isNotEmpty())
         {

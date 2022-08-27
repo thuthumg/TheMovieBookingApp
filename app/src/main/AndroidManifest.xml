@@ -30,7 +30,7 @@
             android:name=".activities.PaymentConfirmActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.TicketBookingTimeActivity"
+            android:name=".activities.BookingDateTimeActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SnackActivity"

@@ -11,15 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.padcmyanmar.ttm.themoviebookingapp.R
-import com.padcmyanmar.ttm.themoviebookingapp.adapter.DateListAdapter
-import com.padcmyanmar.ttm.themoviebookingapp.adapter.TicketBookingTimeItemAdapter
+import com.padcmyanmar.ttm.themoviebookingapp.adapter.BookingDateListAdapter
+import com.padcmyanmar.ttm.themoviebookingapp.adapter.BookingTimeObjectAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.BookingDate
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.CinemaDayTimeslotVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.AvailableTicketDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.BookingDateDelegate
-import com.padcmyanmar.ttm.themoviebookingapp.delegate.TicketTypeDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.utils.DATE_FORMAT
 import com.padcmyanmar.ttm.themoviebookingapp.utils.TWO_WEEKS
 import kotlinx.android.synthetic.main.activity_ticket.*
@@ -30,7 +29,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
+class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     BookingDateDelegate {
 
     companion object {
@@ -45,7 +44,7 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
             movieTitle: String,
             moviePic: String
         ): Intent {
-            val intent = Intent(context, TicketBookingTimeActivity::class.java)
+            val intent = Intent(context, BookingDateTimeActivity::class.java)
             intent.putExtra(MOVIE_ID, movieId)
             intent.putExtra(MOVIE_NAME, movieTitle)
             intent.putExtra(MOVIE_PIC, moviePic)
@@ -53,8 +52,8 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
         }
     }
 
-    lateinit var mDateListAdapter: DateListAdapter
-    lateinit var mTicketBookingTimeItemAdapter: TicketBookingTimeItemAdapter
+    lateinit var mBookingDateListAdapter: BookingDateListAdapter
+    lateinit var mBookingTimeObjectAdapter: BookingTimeObjectAdapter
 
     //Booking Date Data
     private var mBookingDateData: ArrayList<BookingDate>? = arrayListOf()
@@ -62,20 +61,19 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     private var cinemaIdParam: Int? = null
     private var movieNameParam: String? = ""
     private var moviePic: String? = ""
-
     private var mCinemaDayTimeslotVOs: List<CinemaDayTimeslotVO> = listOf()
 
 
     @SuppressLint("SimpleDateFormat")
     var s = SimpleDateFormat(DATE_FORMAT)
     private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
-    private var timeSlotIdParam: Int? = null
-    private var timeSlotValueParam: String? = null
+    private var cinemaTimeSlotId: Int? = null
+    private var cinemaTime: String? = null
     private var cinemaName: String? = null
-    private var movieDateParam: String? = null
+    private var movieBookingDateYMDFormat: String? = null
 
-    private var intentParamMovieBookingDate: String? = null
-    private var intentParamMovieBookingDay: String? = null
+    private var movieBookingDate: String? = null
+    private var movieBookingDay: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,10 +103,12 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     //get Movie Date Setup
     private fun getMovieBookingDate() {
         mBookingDateData = calculateTwoWeeks()
+        //data setup at UI
         setUpDateListAdapter()
+        //auto select at first time
         mBookingDateData?.firstOrNull()?.isSelected = true
         mBookingDateData?.firstOrNull()?.bookingFormatDate.let { bookingDate ->
-            movieDateParam = bookingDate
+            movieBookingDateYMDFormat = bookingDate
             getMovieTimeSlotsByBookingDate(movieIdParam, bookingDate) // get movie time call API
         }
 
@@ -125,7 +125,7 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
                 onSuccess = { cinemaDayTimeslotVOList ->
                     pbTicketBookingTimeLoading.visibility = View.GONE
                     mCinemaDayTimeslotVOs = cinemaDayTimeslotVOList
-                    mTicketBookingTimeItemAdapter.setData(cinemaDayTimeslotVOList)
+                    mBookingTimeObjectAdapter.setData(cinemaDayTimeslotVOList)
                 },
                 onFailure = { msgString ->
                     pbTicketBookingTimeLoading.visibility = View.GONE
@@ -199,8 +199,8 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     }
 
     private fun setUpAvailableTicketItemAdapter() {
-        mTicketBookingTimeItemAdapter = TicketBookingTimeItemAdapter(this)
-        rvAvailableTicketItemList.adapter = mTicketBookingTimeItemAdapter
+        mBookingTimeObjectAdapter = BookingTimeObjectAdapter(this)
+        rvAvailableTicketItemList.adapter = mBookingTimeObjectAdapter
         rvAvailableTicketItemList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
@@ -208,36 +208,34 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
 
     private fun setUpClickListener() {
         btnNext.setOnClickListener {
-            // startActivity(Intent(this, SeatingPlanActivity::class.java))
-            Log.d(
-                "TicketBookingTime",
-                "check timeSlot value $timeSlotValueParam $movieDateParam   //// $intentParamMovieBookingDate " +
-                        "$intentParamMovieBookingDay"
-            )
-            if (timeSlotIdParam == null) {
+
+            if (cinemaTimeSlotId == null) {
                 showError(getString(R.string.txt_booking_time_error))
             } else {
 
                 Log.d(
                     "TicketBookingTime",
-                    "check timeSlot value $timeSlotValueParam $movieDateParam   //// $intentParamMovieBookingDate " +
-                            "$intentParamMovieBookingDay"
+                    "check timeSlot value $cinemaTime $movieBookingDateYMDFormat   //// $movieBookingDate " +
+                            "$movieBookingDay"
                 )
 
                 startActivity(
                     SeatingPlanActivity.newIntent(
                         this,
+                        movieBookingDateYMDFormat = movieBookingDateYMDFormat,
+                        movieBookingDate = movieBookingDate,
+                        movieBookingDay = movieBookingDay,
+
                         movieId = movieIdParam,
-                        movieDateParam = movieDateParam,
-                        movieTimeSlotId = timeSlotIdParam,
                         movieName = movieNameParam,
-                        movieTimeSlotValue = timeSlotValueParam,
+                        moviePic = moviePic,
+
+                        cinemaTimeSlotId = cinemaTimeSlotId,
+                        cinemaTime = cinemaTime,
                         cinemaName = cinemaName,
-                        intentParamMovieBookingDate = intentParamMovieBookingDate,
-                        intentParamMovieBookingDay = intentParamMovieBookingDay,
-                        cinemaIdParam = cinemaIdParam,
-                        moviePic = moviePic
-                    )
+                        cinemaId = cinemaIdParam,
+
+                        )
                 )
             }
 
@@ -248,11 +246,11 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     }
 
     private fun setUpDateListAdapter() {
-        mDateListAdapter = DateListAdapter(this)
-        rvDateList.adapter = mDateListAdapter
+        mBookingDateListAdapter = BookingDateListAdapter(this)
+        rvDateList.adapter = mBookingDateListAdapter
         rvDateList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mBookingDateData?.let { mDateListAdapter.setData(it) }
+        mBookingDateData?.let { mBookingDateListAdapter.setData(it) }
     }
 
     //movie time click function
@@ -265,8 +263,8 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
 
                 if (timeslotId == timeslotVO.cinemaDayTimeslotId) {
 
-                    timeSlotIdParam = timeslotVO.cinemaDayTimeslotId
-                    timeSlotValueParam = timeslotVO.startTime
+                    cinemaTimeSlotId = timeslotVO.cinemaDayTimeslotId
+                    cinemaTime = timeslotVO.startTime
                     cinemaName = it.cinema
                     cinemaIdParam = it.cinemaId
 
@@ -275,24 +273,24 @@ class TicketBookingTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
 
 
         }
-        mTicketBookingTimeItemAdapter.setData(mCinemaDayTimeslotVOs)
+        mBookingTimeObjectAdapter.setData(mCinemaDayTimeslotVOs)
     }
 
     //movie date click function
     override fun onTapDateDelegate(mBookingDate: BookingDate, isSelectedId: Int) {
         pbTicketBookingTimeLoading.visibility = View.VISIBLE
-        timeSlotIdParam = null
+        cinemaTimeSlotId = null
 
         mBookingDateData?.forEach {
             it.isSelected = mBookingDate.bookingFormatDate == it.bookingFormatDate
             if (mBookingDate.bookingFormatDate == it.bookingFormatDate)
-                movieDateParam = it.bookingFormatDate
+                movieBookingDateYMDFormat = it.bookingFormatDate
         }
 
-        mBookingDateData?.let { mDateListAdapter.setData(it) }
+        mBookingDateData?.let { mBookingDateListAdapter.setData(it) }
 
-        intentParamMovieBookingDate = mBookingDate.bookingDate
-        intentParamMovieBookingDay = mBookingDate.bookingDay
+        movieBookingDate = mBookingDate.bookingDate
+        movieBookingDay = mBookingDate.bookingDay
 
         mBookingDateData?.getOrNull(isSelectedId)?.bookingFormatDate?.let {
             getMovieTimeSlotsByBookingDate(movieIdParam, it)
