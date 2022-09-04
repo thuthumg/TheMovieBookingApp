@@ -1,5 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.models
 
+import android.content.Context
 import com.padcmyanmar.ttm.themovieapp.data.vos.ActorVO
 import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
 import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
@@ -7,13 +8,24 @@ import com.padcmyanmar.ttm.themoviebookingapp.data.vos.*
 import com.padcmyanmar.ttm.themoviebookingapp.network.dataagents.MovieBookingDataAgent
 import com.padcmyanmar.ttm.themoviebookingapp.network.dataagents.RetrofitDataAgentImpl
 import com.padcmyanmar.ttm.themoviebookingapp.network.request.CheckOutRequest
+import com.padcmyanmar.ttm.themoviebookingapp.persistence.MovieBookingDatabase
 import com.padcmyanmar.ttm.themoviebookingapp.utils.PARAM_BEARER
 import com.padcmyanmar.ttm.themoviebookingapp.utils.SUCCESS_CODE
 
 object MovieBookingModelImpl : MovieBookingModel {
 
     var userToken: String? = null
+
+    //Data Agent Dependency
     private val mMovieBookingDataAgent: MovieBookingDataAgent = RetrofitDataAgentImpl
+
+    //Database Dependency
+    private var mMovieBookingDataBase: MovieBookingDatabase? = null
+
+    fun initDatabase(context: Context){
+        mMovieBookingDataBase = MovieBookingDatabase.getDBInstance(context)
+    }
+
     override fun registerUser(
         name: String,
         email: String,
@@ -22,6 +34,8 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (message: String) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Network
         mMovieBookingDataAgent.registerUser(
             name = name,
             email = email,
@@ -34,6 +48,12 @@ object MovieBookingModelImpl : MovieBookingModel {
                 val userDataVO = paramData.second
 
                 this.userToken = PARAM_BEARER + token
+
+                userDataVO.token = this.userToken
+
+                mMovieBookingDataBase?.userDataDao()?.insertUserData(
+                    userDataVO = userDataVO)
+
 
                 //to view layer
                 onSuccess(message)
@@ -59,6 +79,13 @@ object MovieBookingModelImpl : MovieBookingModel {
 
                 this.userToken = PARAM_BEARER + token
 
+
+
+                userDataVO.token = this.userToken
+
+                mMovieBookingDataBase?.userDataDao()?.insertUserData(
+                    userDataVO = userDataVO)
+
                 //to view layer
                 onSuccess(message)
             },
@@ -70,13 +97,35 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (userDataVO: UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Database
         this.userToken?.let {
-            mMovieBookingDataAgent.getProfile(
-                token = it,
-                onSuccess = onSuccess,
-                onFailure = onFailure
-            )
+
+            mMovieBookingDataBase?.userDataDao()?.getUserDataByToken(
+                token = it
+            )?.let { it1 ->
+                onSuccess(
+                    it1
+                )
+            }
+
+
+
         }
+
+
+
+
+
+        //Network
+
+//        this.userToken?.let {
+//            mMovieBookingDataAgent.getProfile(
+//                token = it,
+//                onSuccess = onSuccess,
+//                onFailure = onFailure
+//            )
+//        }
     }
 
 

@@ -81,7 +81,8 @@
 
         </RelativeLayout>
         <ProgressBar
-
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bg"
             android:id="@+id/pbTicketBookingTimeLoading"
             android:layout_gravity="center"
             android:layout_width="wrap_content"

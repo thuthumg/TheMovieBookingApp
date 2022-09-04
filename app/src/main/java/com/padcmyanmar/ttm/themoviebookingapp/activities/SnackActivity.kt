@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -353,7 +352,6 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
             }
 
             if (snackItem.quantity > 0) {
-                Log.d("SnackActivity","check snack list = "+snackItem.quantity )
                 intentParamSnackVO = snackItem
                 intentParamSnackVO?.let { intentParamSelectedSnackVOList?.add(it) }
             }

@@ -215,7 +215,7 @@ class PaymentConfirmActivity : AppCompatActivity() {//, PaymentCardDelegate
                         startActivity(
                             VoucherActivity.newIntent(
                                 this,
-                                checkOutRequest = str,
+                                checkOutVO = str,
 
                                 movieBookingDate = movieBookingDate,
                                 movieBookingDay = movieBookingDay,

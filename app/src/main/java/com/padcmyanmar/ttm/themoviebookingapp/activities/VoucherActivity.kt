@@ -22,13 +22,12 @@ import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
 import kotlinx.android.synthetic.main.activity_voucher.*
 import kotlinx.android.synthetic.main.activity_voucher.tvMovieTitle
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class VoucherActivity : AppCompatActivity() {
     companion object {
 
-        private const val CHECKOUT_REQUEST_ID = "CHECKOUT_REQUEST_ID"
+        private const val CHECKOUT_VO = "CHECKOUT_VO"
 
         //Booking date param
         private const val MOVIE_BOOKING_DATE = "MOVIE_BOOKING_DATE"
@@ -49,7 +48,7 @@ class VoucherActivity : AppCompatActivity() {
 
         fun newIntent(
             context: Context,
-            checkOutRequest: String?,
+            checkOutVO: String?,
 
             movieBookingDate: String?,
             movieBookingDay: String?,
@@ -66,7 +65,7 @@ class VoucherActivity : AppCompatActivity() {
         ): Intent {
 
             val intent = Intent(context, VoucherActivity::class.java)
-            intent.putExtra(CHECKOUT_REQUEST_ID, checkOutRequest)
+            intent.putExtra(CHECKOUT_VO, checkOutVO)
             intent.putExtra(MOVIE_BOOKING_DATE, movieBookingDate)
             intent.putExtra(MOVIE_BOOKING_DAY, movieBookingDay)
 
@@ -112,7 +111,7 @@ class VoucherActivity : AppCompatActivity() {
 
     private fun getIntentParamAndSetupUI() {
 
-        checkOutVO = intent.getStringExtra(CHECKOUT_REQUEST_ID)
+        checkOutVO = intent.getStringExtra(CHECKOUT_VO)
 
         bookingDate = intent?.getStringExtra(MOVIE_BOOKING_DATE)
         bookingDay = intent?.getStringExtra(MOVIE_BOOKING_DAY)
@@ -146,8 +145,6 @@ class VoucherActivity : AppCompatActivity() {
         tvPrice.text = checkOutVO?.total
 
         //to generate Bar code
-        //  val hintMap: MutableMap<EncodeHintType, ErrorCorrectionLevel> = HashMap()
-        //  hintMap[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.H
         checkOutVO?.qrCode?.let { generateBarCode(it) }
     }
 

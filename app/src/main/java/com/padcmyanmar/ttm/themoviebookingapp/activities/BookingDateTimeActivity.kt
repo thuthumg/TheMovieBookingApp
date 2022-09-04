@@ -213,12 +213,6 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
                 showError(getString(R.string.txt_booking_time_error))
             } else {
 
-                Log.d(
-                    "TicketBookingTime",
-                    "check timeSlot value $cinemaTime $movieBookingDateYMDFormat   //// $movieBookingDate " +
-                            "$movieBookingDay"
-                )
-
                 startActivity(
                     SeatingPlanActivity.newIntent(
                         this,
