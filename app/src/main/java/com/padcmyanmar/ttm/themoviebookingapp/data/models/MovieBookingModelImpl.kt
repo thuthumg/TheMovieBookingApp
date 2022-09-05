@@ -1,6 +1,7 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.models
 
 import android.content.Context
+import android.util.Log
 import com.padcmyanmar.ttm.themovieapp.data.vos.ActorVO
 import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
 import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
@@ -98,20 +99,32 @@ object MovieBookingModelImpl : MovieBookingModel {
         onFailure: (String) -> Unit
     ) {
 
-        //Database
-        this.userToken?.let {
 
-            mMovieBookingDataBase?.userDataDao()?.getUserDataByToken(
-                token = it
-            )?.let { it1 ->
-                onSuccess(
-                    it1
-                )
+        //Database
+      //  this.userToken?.let {
+
+            when(this.userToken?.isEmpty())
+            {
+                null->{
+                    onFailure("Fail")
+
+                }
+                else->{
+
+                    this.userToken?.let {
+                        mMovieBookingDataBase?.userDataDao()?.getUserDataByToken(
+                            token = it
+                        )?.let { it1 -> onSuccess(it1) }
+                    }
+                }
+
+
             }
 
 
 
-        }
+      //  }
+
 
 
 
