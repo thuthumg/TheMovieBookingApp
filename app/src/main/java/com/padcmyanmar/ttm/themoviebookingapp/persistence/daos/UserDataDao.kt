@@ -12,10 +12,10 @@ interface UserDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUserData(userDataVO: UserDataVO)
 
-    @Query("SELECT * from UserData")
+    @Query("SELECT * from user_data")
     fun getAllUsersData(): List<UserDataVO>
 
-    @Query("SELECT * from UserData WHERE token = :token")
+    @Query("SELECT * from user_data WHERE token = :token")
     fun getUserDataByToken(token:String): UserDataVO?
 
 

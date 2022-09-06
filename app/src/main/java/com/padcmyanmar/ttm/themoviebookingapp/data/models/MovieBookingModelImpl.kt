@@ -271,12 +271,30 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<CinemaDayTimeslotVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Database
+        mMovieBookingDataBase?.cinemaDayTimeslotDao()?.
+        getCinemaDayTimeslotByDate(dateParam)?.let {
+            onSuccess(
+                it
+            )
+        }
+
+
+
+        //Network
         this.userToken?.let {
             mMovieBookingDataAgent.getCinemaDayTimeslot(
                 token = it,
                 movieId = movieId,
                 dateParam = dateParam,
-                onSuccess = onSuccess,
+                onSuccess = {
+
+                    it.forEach { cinemaDayTimeslotVO -> cinemaDayTimeslotVO.bookingDate = dateParam }
+                     mMovieBookingDataBase?.cinemaDayTimeslotDao()?.insertCinemaDayTimeslot(it)
+                    onSuccess(it)
+
+                },
                 onFailure = onFailure
             )
         }

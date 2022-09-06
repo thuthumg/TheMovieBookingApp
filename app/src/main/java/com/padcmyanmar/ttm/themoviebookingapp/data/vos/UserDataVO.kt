@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 import com.padcmyanmar.ttm.themoviebookingapp.persistence.typeconverters.CardsTypeConverter
 import java.util.regex.Pattern
 
-@Entity(tableName = "UserData")
+@Entity(tableName = "user_data")
 @TypeConverters(
     CardsTypeConverter::class
 )
