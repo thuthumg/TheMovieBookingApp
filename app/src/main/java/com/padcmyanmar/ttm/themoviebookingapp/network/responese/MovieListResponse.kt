@@ -1,8 +1,9 @@
 package com.padcmyanmar.ttm.themoviebookingapp.network.responese
 
 import com.google.gson.annotations.SerializedName
-import com.padcmyanmar.ttm.themovieapp.data.vos.DateVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.DateVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.MovieVO
+
 
 data class MovieListResponse(
     @SerializedName("dates")

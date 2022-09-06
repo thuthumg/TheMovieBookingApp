@@ -4,9 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.adapter.ShowingMovieListAdapter
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.MovieVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
 import kotlinx.android.synthetic.main.view_pod_now_showing.view.*
 

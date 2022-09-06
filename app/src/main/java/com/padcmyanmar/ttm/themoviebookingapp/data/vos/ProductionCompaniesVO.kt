@@ -1,8 +1,8 @@
-package com.padcmyanmar.ttm.themovieapp.data.vos
+package com.padcmyanmar.ttm.themoviebookingapp.data.vos
 
 import com.google.gson.annotations.SerializedName
 
-data class ProductionCompanieVO(
+data class ProductionCompaniesVO(
 
     @SerializedName("id")
     val id: Int?,

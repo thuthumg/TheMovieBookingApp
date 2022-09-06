@@ -1,6 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.network
 
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.MovieVO
 import com.padcmyanmar.ttm.themoviebookingapp.network.responese.GetCreditsByMovieResponse
 import com.padcmyanmar.ttm.themoviebookingapp.network.responese.GetGenresResponse
 import com.padcmyanmar.ttm.themoviebookingapp.network.responese.MovieListResponse

@@ -13,11 +13,12 @@ import androidx.core.view.GravityCompat
 import com.bumptech.glide.Glide
 
 import com.google.android.material.snackbar.Snackbar
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+
 
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.UserDataVO
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.utils.BASE_URL
@@ -35,7 +36,7 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
     private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
     lateinit var nowShowingMovieListViewPod: ShowingMovieListViewPod
     lateinit var comingSoonMovieListViewPod: ShowingMovieListViewPod
-    var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     var mGenres: List<GenreVO> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

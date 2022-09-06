@@ -1,4 +1,4 @@
-package com.padcmyanmar.ttm.themovieapp.data.vos
+package com.padcmyanmar.ttm.themoviebookingapp.data.vos
 
 import com.google.gson.annotations.SerializedName
 

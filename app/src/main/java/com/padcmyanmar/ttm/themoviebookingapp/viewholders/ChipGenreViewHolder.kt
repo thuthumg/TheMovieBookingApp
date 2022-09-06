@@ -2,7 +2,7 @@ package com.padcmyanmar.ttm.themoviebookingapp.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
 
 import kotlinx.android.synthetic.main.view_holder_chip_genre.view.*
 

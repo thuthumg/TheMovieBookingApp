@@ -1,7 +1,8 @@
 package com.padcmyanmar.ttm.themoviebookingapp.network.responese
 
 import com.google.gson.annotations.SerializedName
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
+
 
 data class GetGenresResponse(
 

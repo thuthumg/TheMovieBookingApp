@@ -1,6 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.vos
 
-import android.util.Log
+
 import com.google.gson.annotations.SerializedName
 
 data class MovieSeatVO(

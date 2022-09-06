@@ -1,10 +1,7 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.models
 
 import android.content.Context
-import android.util.Log
-import com.padcmyanmar.ttm.themovieapp.data.vos.ActorVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.*
 import com.padcmyanmar.ttm.themoviebookingapp.network.dataagents.MovieBookingDataAgent
 import com.padcmyanmar.ttm.themoviebookingapp.network.dataagents.RetrofitDataAgentImpl
@@ -23,7 +20,7 @@ object MovieBookingModelImpl : MovieBookingModel {
     //Database Dependency
     private var mMovieBookingDataBase: MovieBookingDatabase? = null
 
-    fun initDatabase(context: Context){
+    fun initDatabase(context: Context) {
         mMovieBookingDataBase = MovieBookingDatabase.getDBInstance(context)
     }
 
@@ -53,7 +50,8 @@ object MovieBookingModelImpl : MovieBookingModel {
                 userDataVO.token = this.userToken
 
                 mMovieBookingDataBase?.userDataDao()?.insertUserData(
-                    userDataVO = userDataVO)
+                    userDataVO = userDataVO
+                )
 
 
                 //to view layer
@@ -85,7 +83,8 @@ object MovieBookingModelImpl : MovieBookingModel {
                 userDataVO.token = this.userToken
 
                 mMovieBookingDataBase?.userDataDao()?.insertUserData(
-                    userDataVO = userDataVO)
+                    userDataVO = userDataVO
+                )
 
                 //to view layer
                 onSuccess(message)
@@ -101,33 +100,27 @@ object MovieBookingModelImpl : MovieBookingModel {
 
 
         //Database
-      //  this.userToken?.let {
+        //  this.userToken?.let {
 
-            when(this.userToken?.isEmpty())
-            {
-                null->{
-                    onFailure("Fail")
+        when (this.userToken?.isEmpty()) {
+            null -> {
+                onFailure("Fail")
 
+            }
+            else -> {
+
+                this.userToken?.let {
+                    mMovieBookingDataBase?.userDataDao()?.getUserDataByToken(
+                        token = it
+                    )?.let { it1 -> onSuccess(it1) }
                 }
-                else->{
-
-                    this.userToken?.let {
-                        mMovieBookingDataBase?.userDataDao()?.getUserDataByToken(
-                            token = it
-                        )?.let { it1 -> onSuccess(it1) }
-                    }
-                }
-
-
             }
 
 
-
-      //  }
-
+        }
 
 
-
+        //  }
 
 
         //Network
@@ -146,14 +139,49 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getNowPlayingMovies(onSuccess = onSuccess, onFailure = onFailure)
+
+        //Database
+        onSuccess(
+            mMovieBookingDataBase?.movieDao()?.getMovieByType(
+                type = NOW_PLAYING
+            ) ?: listOf()
+        )
+
+
+        //Network
+        mMovieBookingDataAgent.getNowPlayingMovies(onSuccess = {
+
+            it.forEach { movieVO -> movieVO.type = NOW_PLAYING }
+            mMovieBookingDataBase?.movieDao()?.insertMovies(it)
+
+            onSuccess(it)
+
+        }, onFailure = onFailure)
     }
 
     override fun getComingSoonMovies(
         onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getComingSoonMovies(onSuccess = onSuccess, onFailure = onFailure)
+
+        //Database
+        onSuccess(
+            mMovieBookingDataBase?.movieDao()?.getMovieByType(
+                type = COMING_SOON
+            ) ?: listOf()
+        )
+
+
+        //Network
+        mMovieBookingDataAgent.getComingSoonMovies(onSuccess = {
+
+            it.forEach { movieVO -> movieVO.type = COMING_SOON }
+            mMovieBookingDataBase?.movieDao()?.insertMovies(it)
+
+            onSuccess(it)
+
+
+        }, onFailure = onFailure)
     }
 
     override fun logoutCall(onSuccess: (Pair<Int, String>) -> Unit, onFailure: (String) -> Unit) {
@@ -178,9 +206,32 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (MovieVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Database
+
+        mMovieBookingDataBase?.movieDao()?.getMovieById(
+            movieId =
+            movieId.toInt()
+        )?.let { onSuccess(it) }
+
+
+        //Network
         mMovieBookingDataAgent.getMovieDetails(
             movieId = movieId,
-            onSuccess = onSuccess,
+            onSuccess = {
+                val movieBookingDatabase = mMovieBookingDataBase?.movieDao()?.getMovieById(
+                    movieId =
+                    movieId.toInt()
+                )
+
+                it.type = movieBookingDatabase?.type
+
+                mMovieBookingDataBase?.movieDao()?.insertSingleMovies(it)
+
+                onSuccess(it)
+
+
+            },
             onFailure = onFailure
         )
     }
@@ -191,9 +242,19 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Database
+      //  onSuccess(mMovieBookingDataBase?.actorDao()?.getAllActors() ?: listOf())
+
+
+        //Network
         mMovieBookingDataAgent.getCreditsByMovie(
             movieId = movieId,
-            onSuccess = onSuccess,
+            onSuccess = {
+                   mMovieBookingDataBase?.actorDao()?.insertActors(it.first,it.second)
+                        onSuccess(it)
+
+            },
             onFailure = onFailure
         )
     }

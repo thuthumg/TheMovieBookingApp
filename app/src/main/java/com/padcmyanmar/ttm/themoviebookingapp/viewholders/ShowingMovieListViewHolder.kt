@@ -4,8 +4,9 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.MovieVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
 import kotlinx.android.synthetic.main.view_holder_showing_movie_list.view.*
@@ -26,7 +27,7 @@ class ShowingMovieListViewHolder(itemView: View, private val mDelegate:MovieList
         }
     }
 
-    fun bindData(movieVO: MovieVO,mGenresList:List<GenreVO>){
+    fun bindData(movieVO: MovieVO, mGenresList:List<GenreVO>){
         var genreNameString:String = ""
         mMovieVO = movieVO
         movieVO.genreIds?.let {

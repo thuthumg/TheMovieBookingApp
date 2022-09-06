@@ -1,9 +1,7 @@
 package com.padcmyanmar.ttm.themoviebookingapp.network.dataagents
 
 import android.util.Log
-import com.padcmyanmar.ttm.themovieapp.data.vos.ActorVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.*
 import com.padcmyanmar.ttm.themoviebookingapp.network.TheMovieApi
 import com.padcmyanmar.ttm.themoviebookingapp.network.TheMovieBookingApi

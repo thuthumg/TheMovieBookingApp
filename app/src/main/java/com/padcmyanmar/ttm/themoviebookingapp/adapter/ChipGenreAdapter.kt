@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.R
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.GenreVO
 import com.padcmyanmar.ttm.themoviebookingapp.viewholders.ChipGenreViewHolder
 
 class ChipGenreAdapter : RecyclerView.Adapter<ChipGenreViewHolder>() {

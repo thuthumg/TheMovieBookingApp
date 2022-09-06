@@ -9,12 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
+
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.adapter.CastListAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.adapter.ChipGenreAdapter
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModelImpl
+import com.padcmyanmar.ttm.themoviebookingapp.data.vos.MovieVO
 import com.padcmyanmar.ttm.themoviebookingapp.utils.IMAGE_BASE_URL
 import kotlinx.android.synthetic.main.activity_movie_list_detail.*
 import kotlin.math.roundToLong

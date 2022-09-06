@@ -1,8 +1,5 @@
 package com.padcmyanmar.ttm.themoviebookingapp.network.dataagents
 
-import com.padcmyanmar.ttm.themovieapp.data.vos.ActorVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.GenreVO
-import com.padcmyanmar.ttm.themovieapp.data.vos.MovieVO
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.*
 import com.padcmyanmar.ttm.themoviebookingapp.network.request.CheckOutRequest
 import com.padcmyanmar.ttm.themoviebookingapp.network.responese.CheckOutResponse
