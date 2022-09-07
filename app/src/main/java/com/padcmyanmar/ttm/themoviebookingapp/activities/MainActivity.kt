@@ -18,33 +18,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        checkUserDataExistOrNot()
+
         btnGetStarted.setOnClickListener {
-
-            mMovieBookingModel.getProfile(
-                onSuccess = { userDataVO ->
-
-                    when(userDataVO.token?.isEmpty())
-                    {
-                        null->{
-                            startActivity(Intent(this,WelcomeLoginActivity::class.java))
-                        }
-
-                        else -> {
-                            startActivity(Intent(this,HomeActivity::class.java))
-                        }
-                    }
-
-                    finish()
-                },
-                onFailure = {
-                  // Toast.makeText(this@MainActivity,it,Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this,WelcomeLoginActivity::class.java))
-                    finish()
-                }
-            )
-           // startActivity(Intent(this,WelcomeLoginActivity::class.java))
+             startActivity(Intent(this,WelcomeLoginActivity::class.java))
         }
 
+    }
+
+    private fun checkUserDataExistOrNot() {
+        mMovieBookingModel.getProfile(
+            onSuccess = { userDataVO ->
+
+                when(userDataVO.token?.isEmpty())
+                {
+                    null->{
+                       // startActivity(Intent(this,WelcomeLoginActivity::class.java))
+                    }
+
+                    else -> {
+                        startActivity(Intent(this,HomeActivity::class.java))
+                    }
+                }
+
+                finish()
+            },
+            onFailure = {
+               //  Toast.makeText(this@MainActivity,it,Toast.LENGTH_SHORT).show()
+              //  startActivity(Intent(this,WelcomeLoginActivity::class.java))
+              // finish()
+            }
+        )
     }
 }

@@ -106,7 +106,7 @@ class WelcomeLoginActivity : AppCompatActivity(), LogInWithEmailDelegate, Regist
             onSuccess = {
                 showToast(it)
                 startActivity(Intent(this, HomeActivity::class.java))
-
+                finish()
             },
             onFailure = {
                 showToast(it)

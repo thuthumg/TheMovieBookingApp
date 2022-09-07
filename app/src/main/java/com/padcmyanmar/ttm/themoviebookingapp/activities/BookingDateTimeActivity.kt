@@ -118,6 +118,10 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     private fun getMovieTimeSlotsByBookingDate(movieIdParam: Int?, bookingDate: String?) {
 
 
+        //Database
+
+
+        //network
         bookingDate?.let {
             mMovieBookingModel.getCinemaDayTimeslot(
                 movieId = movieIdParam.toString(),

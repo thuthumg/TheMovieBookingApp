@@ -43,5 +43,8 @@ data class UserDataVO(
 
 
     @ColumnInfo(name = "token")
-    var token: String?
+    var token: String?,
+
+    @ColumnInfo(name = "active_status")
+    var activeStatus: Int? = 0
 )
