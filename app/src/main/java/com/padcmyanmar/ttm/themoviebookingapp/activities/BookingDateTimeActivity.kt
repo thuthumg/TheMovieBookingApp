@@ -81,8 +81,8 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         getMovieDetailIntentParam()
-        getMovieBookingDate()
         setUpAvailableTicketItemAdapter()
+        getMovieBookingDate()
         setUpClickListener()
 
 
@@ -116,10 +116,6 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
 
     // get movie time data from call API and bind data at UI
     private fun getMovieTimeSlotsByBookingDate(movieIdParam: Int?, bookingDate: String?) {
-
-
-        //Database
-
 
         //network
         bookingDate?.let {

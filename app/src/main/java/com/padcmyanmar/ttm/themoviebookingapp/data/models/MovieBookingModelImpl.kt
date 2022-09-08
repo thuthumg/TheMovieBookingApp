@@ -24,7 +24,7 @@ object MovieBookingModelImpl : MovieBookingModel {
     fun initDatabase(context: Context) {
         mMovieBookingDataBase = MovieBookingDatabase.getDBInstance(context)
 
-      //  this.userToken = mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.token
+        //  this.userToken = mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.token
     }
 
     override fun registerUser(
@@ -118,13 +118,21 @@ object MovieBookingModelImpl : MovieBookingModel {
 
         //Network
 
-//        this.userToken?.let {
-//            mMovieBookingDataAgent.getProfile(
-//                token = it,
-//                onSuccess = onSuccess,
-//                onFailure = onFailure
-//            )
-//        }
+        mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus().let {
+            it?.token?.let { it1 ->
+                mMovieBookingDataAgent.getProfile(
+                    token = it1,
+                    onSuccess = { userDataVO ->
+
+                        mMovieBookingDataBase?.userDataDao()?.insertUserData(userDataVO)
+
+                        onSuccess(userDataVO)
+
+                    },
+                    onFailure = onFailure
+                )
+            }
+        }
     }
 
 
@@ -286,13 +294,23 @@ object MovieBookingModelImpl : MovieBookingModel {
                 token = it,
                 movieId = movieId,
                 dateParam = dateParam,
-                onSuccess = {
+                onSuccess = { cinemaDayTimeslotList ->
 
-                    it.forEach { cinemaDayTimeslotVO ->
+                    cinemaDayTimeslotList.forEach { cinemaDayTimeslotVO ->
                         cinemaDayTimeslotVO.bookingDate = dateParam
                     }
-                    mMovieBookingDataBase?.cinemaDayTimeslotDao()?.insertCinemaDayTimeslot(it)
-                    onSuccess(it)
+
+                    //to avoid duplicate timeslot data
+                    mMovieBookingDataBase?.cinemaDayTimeslotDao()
+                        ?.getCinemaDayTimeslotByDate(dateParam)?.let { cinemaListData ->
+                            if (cinemaListData.isEmpty()) {
+                                mMovieBookingDataBase?.cinemaDayTimeslotDao()
+                                    ?.insertCinemaDayTimeslot(cinemaDayTimeslotList)
+
+                            }
+                        }
+
+                    onSuccess(cinemaDayTimeslotList)
 
                 },
                 onFailure = onFailure
@@ -318,10 +336,22 @@ object MovieBookingModelImpl : MovieBookingModel {
     }
 
     override fun getSnackList(onSuccess: (List<SnackVO>) -> Unit, onFailure: (String) -> Unit) {
+
+        //Database
+        mMovieBookingDataBase?.snackDao()?.getAllSnacks()?.let { onSuccess(it) }
+
+
+        //Network
         mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.token?.let {
             mMovieBookingDataAgent.getSnackList(
                 token = it,
-                onSuccess = onSuccess,
+                onSuccess = { snacksList ->
+
+                    mMovieBookingDataBase?.snackDao()?.insertSnacks(snacksList)
+
+                    onSuccess(snacksList)
+
+                },
                 onFailure = onFailure
             )
         }
@@ -331,10 +361,19 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<PaymentMethodVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
+
+        //Database
+        mMovieBookingDataBase?.paymentMethodDao()?.getAllPaymentMethods()?.let { onSuccess(it) }
+
+        //Network
         mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.token?.let {
             mMovieBookingDataAgent.getPaymentMethodList(
                 token = it,
-                onSuccess = onSuccess,
+                onSuccess = { paymentMethodList ->
+                    mMovieBookingDataBase?.paymentMethodDao()
+                        ?.insertPaymentMethod(paymentMethodList)
+                    onSuccess(paymentMethodList)
+                },
                 onFailure = onFailure
             )
         }

@@ -11,9 +11,11 @@ import com.padcmyanmar.ttm.themoviebookingapp.persistence.typeconverters.Timeslo
 @TypeConverters(TimeslotsTypeConverter::class)
 data class CinemaDayTimeslotVO(
 
+    @PrimaryKey(autoGenerate = true)
+    var cinemaDayTimeslotId: Int = 0 ,
 
     @SerializedName("cinema_id")
-    @PrimaryKey
+    @ColumnInfo(name = "cinema_id")
     val cinemaId:Int?,
 
     @SerializedName("cinema")
