@@ -10,7 +10,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.persistence.daos.*
 @Database(
     entities = [UserDataVO::class,
         MovieVO::class, ActorVO::class, CinemaDayTimeslotVO::class,
-        SnackVO::class, PaymentMethodVO::class], version = 1, exportSchema = false
+        SnackVO::class, PaymentMethodVO::class,DataCinemaAndTimeSlotVO::class], version = 2, exportSchema = false
 )
 abstract class MovieBookingDatabase : RoomDatabase() {
 
@@ -43,4 +43,5 @@ abstract class MovieBookingDatabase : RoomDatabase() {
     abstract fun cinemaDayTimeslotDao(): CinemaDayTimeslotDao
     abstract fun snackDao(): SnackDao
     abstract fun paymentMethodDao(): PaymentMethodDao
+    abstract fun dataCinemaAndTImeSlotDao():DataCinemaAndTimeSlotDao
 }

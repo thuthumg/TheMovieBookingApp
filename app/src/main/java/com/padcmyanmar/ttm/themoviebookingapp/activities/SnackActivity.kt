@@ -1,5 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +24,10 @@ import kotlinx.android.synthetic.main.activity_snack.*
 class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate {
 
     companion object {
+
+        private const val REQUEST_RESULT = 1
+        const val RESULT_DATA = "RESULT_DATA"
+
 
         //Booking date data param
         private const val MOVIE_BOOKING_DATE_YMD_FORMAT =
@@ -135,6 +140,7 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
         setUpClickListener()
         requestData()
     }
+
     private fun getIntentParam() {
 
         //Booking date data param
@@ -161,12 +167,13 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
         mTotalPayAmount = ticketAmount
 
 
-
     }
-    private fun setUpTotalAmt(){
+
+    private fun setUpTotalAmt() {
         btnPay.text = String.format(getString(R.string.txt_pay_amount), ticketAmount)
         tvSubTotal.text = String.format(getString(R.string.txt_sub_total_pay_amount), ticketAmount)
     }
+
     private fun setUpSnackAdapter() {
 
         snackAapter = SnackAdapter(this)
@@ -175,6 +182,7 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     }
+
     private fun setUpPaymentMethodAdapter() {
         mPaymentMethodAdapter = PaymentMethodAdapter(this)
         rvPaymentMethod.adapter = mPaymentMethodAdapter
@@ -192,10 +200,9 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
 
         btnPay.setOnClickListener {
             requestParamSelectedSnackVOList = arrayListOf()
-            if(intentParamSelectedSnackVOList?.size == 0)
-            {
+            if (intentParamSelectedSnackVOList?.size == 0) {
                 showError("Please select the snack")
-            }else{
+            } else {
                 intentParamSelectedSnackVOList?.forEach {
                     requestParamSnackVO = SnackVO(
                         id = it.id,
@@ -210,32 +217,32 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
                     }
                 }
 
-                val snackJsonString: String =  toChangeJsonString(requestParamSelectedSnackVOList)
+                val snackJsonString: String = toChangeJsonString(requestParamSelectedSnackVOList)
 
-                startActivity(
-                        PaymentConfirmActivity.newIntent(
-                            this,
+                startActivityForResult(
+                    PaymentConfirmActivity.newIntent(
+                        this,
 
-                            movieBookingDateYMDFormat = movieBookingDateYMDFormat,
-                            movieBookingDate = movieBookingDate,
-                            movieBookingDay = movieBookingDay,
+                        movieBookingDateYMDFormat = movieBookingDateYMDFormat,
+                        movieBookingDate = movieBookingDate,
+                        movieBookingDay = movieBookingDay,
 
-                            movieId = movieId,
-                            movieName = movieName,
-                            moviePic = moviePic,
+                        movieId = movieId,
+                        movieName = movieName,
+                        moviePic = moviePic,
 
-                            cinemaTimeSlotId = cinemaTimeSlotId,
-                            cinemaTime = cinemaTime,
-                            cinemaName = cinemaName,
-                            cinemaId = cinemaId,
+                        cinemaTimeSlotId = cinemaTimeSlotId,
+                        cinemaTime = cinemaTime,
+                        cinemaName = cinemaName,
+                        cinemaId = cinemaId,
 
-                            seatsData = seatsData,
-                            rowData = rowData,
-                            totalPrice = mTotalPayAmount?.toInt(),
+                        seatsData = seatsData,
+                        rowData = rowData,
+                        totalPrice = mTotalPayAmount?.toInt(),
 
-                            snacks = snackJsonString
+                        snacks = snackJsonString
 
-                        )
+                    ), REQUEST_RESULT
                 )
             }
 
@@ -375,4 +382,28 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
     }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_RESULT) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                // success
+                var resultData = 0
+                data.apply {
+                    resultData = getIntExtra(PaymentConfirmActivity.RESULT_DATA, 0)
+
+                }
+
+                if (resultData == VoucherActivity.VOUCHER_PAGE_SUCCESS) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(RESULT_DATA, resultData)
+                    })
+                    finish()
+                }
+
+            } else {
+                // fail
+            }
+        }
+    }
 }

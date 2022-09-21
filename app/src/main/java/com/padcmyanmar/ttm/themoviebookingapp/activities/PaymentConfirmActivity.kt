@@ -26,6 +26,8 @@ class PaymentConfirmActivity : AppCompatActivity() {//, PaymentCardDelegate
 
     companion object {
         private const val REQUEST_RESULT = 1
+        private const val REQUEST_RESULT_VOUCHER = 2
+        const val RESULT_DATA = "RESULT_DATA"
 
         //Booking date data param
         private const val MOVIE_BOOKING_DATE_YMD_FORMAT = "MOVIE_BOOKING_DATE_YMD_FORMAT"
@@ -207,12 +209,11 @@ class PaymentConfirmActivity : AppCompatActivity() {//, PaymentCardDelegate
                     totalPrice = totalPrice,
                     movieId = movieId,
                     cinemaId = cinemaId,
-                    cardId = cardListCarouselAdapter.mCardsVOList.
-                    getOrNull(carouselRecyclerview.currentItem)?.id,
+                    cardId = cardListCarouselAdapter.mCardsVOList.getOrNull(carouselRecyclerview.currentItem)?.id,
                     snackListString = it1,
                     onSuccess = { checkOutVO, message ->
                         val str: String = g.toJson(checkOutVO)
-                        startActivity(
+                        startActivityForResult(
                             VoucherActivity.newIntent(
                                 this,
                                 checkOutVO = str,
@@ -232,8 +233,10 @@ class PaymentConfirmActivity : AppCompatActivity() {//, PaymentCardDelegate
                                     carouselRecyclerview.currentItem
                                 )?.id
 
-                            )
+                            ), REQUEST_RESULT_VOUCHER
                         )
+
+                        // finish()
 
                     },
                     onFailure = {
@@ -273,11 +276,29 @@ class PaymentConfirmActivity : AppCompatActivity() {//, PaymentCardDelegate
             } else {
                 // fail
             }
+        } else if (requestCode == REQUEST_RESULT_VOUCHER) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                // success
+                var resultData = 0
+                data.apply {
+                    resultData = getIntExtra(VoucherActivity.RESULT_DATA, 0)
+                }
+
+                setResult(RESULT_OK, Intent().apply {
+                    putExtra(RESULT_DATA, resultData)
+                })
+                finish()
+
+
+            } else {
+                // fail
+            }
         }
     }
 
     private fun requestData(cardNumber: String?) {
         mMovieBookingModel.getProfile(
+            paymentFlag = 1,
             onSuccess = { userDataVO ->
                 mCardsVOList = userDataVO.cards
 

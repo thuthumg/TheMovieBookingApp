@@ -10,10 +10,10 @@ import com.padcmyanmar.ttm.themoviebookingapp.delegate.MovieListDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.viewpods.ShowingMovieListViewPod
 import kotlinx.android.synthetic.main.activity_movie_list.*
 
-class MovieListActivity : AppCompatActivity() , MovieListDelegate {
+class MovieListActivity : AppCompatActivity(), MovieListDelegate {
 
-    lateinit var nowShowingMovieListViewPod : ShowingMovieListViewPod
-    lateinit var comingSoonMovieListViewPod : ShowingMovieListViewPod
+    lateinit var nowShowingMovieListViewPod: ShowingMovieListViewPod
+    lateinit var comingSoonMovieListViewPod: ShowingMovieListViewPod
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +26,7 @@ class MovieListActivity : AppCompatActivity() , MovieListDelegate {
 
 
     private fun setUpToolbar() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setSupportActionBar(toolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // to show leading icon
         supportActionBar?.title = ""
@@ -52,7 +52,7 @@ class MovieListActivity : AppCompatActivity() , MovieListDelegate {
 
     override fun onTapDetail(movieId: Int) {
 
-        startActivity(Intent(this,MovieListDetailActivity::class.java))
+        startActivity(Intent(this, MovieListDetailActivity::class.java))
     }
 
 

@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
 
     private fun requestData() {
         mMovieBookingModel.getProfile(
+            paymentFlag = 0,
             onSuccess = { userDataVO ->
 
                 bindDataAtNavigationView(userDataVO)
@@ -194,7 +195,7 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
         }
         //for logout
         llLogout.setOnClickListener {
-            logoutAlert()
+            logOutAlert()
         }
     }
 
@@ -202,11 +203,11 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
         mMovieBookingModel.logoutCall(
             onSuccess = { successResponse ->
                 if (successResponse.first == SUCCESS_CODE) {
-                    startActivity(Intent(this,WelcomeLoginActivity::class.java))
+                    startActivity(Intent(this, WelcomeLoginActivity::class.java))
                     finish()
                     //  showToast(successResponse.second)
                 } else {
-                      showToast(successResponse.second)
+                    showToast(successResponse.second)
                 }
             },
             onFailure = { failMsg ->
@@ -234,23 +235,28 @@ class HomeActivity : AppCompatActivity(), MovieListDelegate {
             )
         )
     }
-    fun logoutAlert(){
+
+    private fun logOutAlert() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Alert!")
         builder.setMessage("Do you want to exit?")
 //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.yes, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT
+            ).show()
             logoutFunction()
             dialog.cancel()
             drawerLayout.closeDrawer(GravityCompat.START)
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.no, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT
+            ).show()
             dialog.cancel()
             drawerLayout.closeDrawer(GravityCompat.START)
         }

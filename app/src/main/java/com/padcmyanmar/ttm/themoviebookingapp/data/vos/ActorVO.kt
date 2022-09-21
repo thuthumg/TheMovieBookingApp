@@ -61,7 +61,13 @@ data class ActorVO(
 
     @SerializedName("order")
     @ColumnInfo(name = "order")
-    val order: Int?
+    val order: Int?,
+
+    @ColumnInfo(name = "type")
+    var type: String?
 
 
 )
+
+const val CAST = "CAST"
+const val CREW = "CREW"

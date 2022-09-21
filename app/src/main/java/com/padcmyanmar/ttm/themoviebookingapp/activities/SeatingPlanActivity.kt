@@ -2,6 +2,7 @@ package com.padcmyanmar.ttm.themoviebookingapp.activities
 
 //import com.padcmyanmar.ttm.themoviebookingapp.dummy.DUMMY_SEATS
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -27,6 +28,9 @@ import kotlin.math.roundToInt
 class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
 
     companion object {
+
+        private const val REQUEST_RESULT = 1
+        const val RESULT_DATA = "RESULT_DATA"
 
         //Booking date data param
         private const val MOVIE_BOOKING_DATE_YMD_FORMAT =
@@ -221,7 +225,7 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
                             "/// $movieBookingDate - $movieBookingDay"
                 )
 
-                startActivity(
+                startActivityForResult(
                     SnackActivity.newIntent(
                         this,
 
@@ -243,8 +247,8 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
                         ticketAmt = ticketAmt
 
 
-
-                    )
+                    ),
+                    REQUEST_RESULT
                 )
 
             }
@@ -322,7 +326,7 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
 
         }
 
-        tvSeats.text = movieSeatSelectedData?.joinToString(", ") { it } ?: ""
+        tvSeats.text = movieSeatSelectedData?.joinToString(",") { it } ?: ""
         rowData = movieSeatRowSelectedData?.joinToString(",") { it } ?: ""
 
         tvTicket.text = "$tvTicketCount"
@@ -330,5 +334,29 @@ class SeatingPlanActivity : AppCompatActivity(), SeatingPlanDelegate {
 
         mMovieSeatAdapter.setNewData(mMovieSeatVOs)
 
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_RESULT) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                // success
+                var resultData = 0
+                data.apply {
+                    resultData = getIntExtra(SnackActivity.RESULT_DATA, 0)
+
+                }
+
+                if (resultData == VoucherActivity.VOUCHER_PAGE_SUCCESS) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(RESULT_DATA, resultData)
+                    })
+                    finish()
+                }
+            } else {
+                // fail
+            }
+        }
     }
 }

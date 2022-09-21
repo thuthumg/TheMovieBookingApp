@@ -3,7 +3,6 @@ package com.padcmyanmar.ttm.themoviebookingapp.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.padcmyanmar.ttm.themoviebookingapp.R
 import com.padcmyanmar.ttm.themoviebookingapp.data.models.MovieBookingModel
@@ -23,32 +22,25 @@ class MainActivity : AppCompatActivity() {
         checkUserDataExistOrNot()
 
         btnGetStarted.setOnClickListener {
-             startActivity(Intent(this,WelcomeLoginActivity::class.java))
+            startActivity(Intent(this, WelcomeLoginActivity::class.java))
+            finish()
         }
 
     }
 
     private fun checkUserDataExistOrNot() {
         mMovieBookingModel.getProfile(
+            paymentFlag = 0,
             onSuccess = { userDataVO ->
 
-                when(userDataVO.token?.isEmpty())
-                {
-                    null->{
-                       // startActivity(Intent(this,WelcomeLoginActivity::class.java))
-                    }
-
-                    else -> {
-                        startActivity(Intent(this,HomeActivity::class.java))
-                    }
+                userDataVO.token?.let {
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                 }
 
-                finish()
             },
             onFailure = {
-               //  Toast.makeText(this@MainActivity,it,Toast.LENGTH_SHORT).show()
-              //  startActivity(Intent(this,WelcomeLoginActivity::class.java))
-              // finish()
+
             }
         )
     }

@@ -26,6 +26,8 @@ import java.util.*
 
 class VoucherActivity : AppCompatActivity() {
     companion object {
+        const val RESULT_DATA = "RESULT_DATA"
+        const val VOUCHER_PAGE_SUCCESS = 1
 
         private const val CHECKOUT_VO = "CHECKOUT_VO"
 
@@ -103,7 +105,10 @@ class VoucherActivity : AppCompatActivity() {
 
         getIntentParamAndSetupUI()
         btnClose.setOnClickListener {
-            startActivity(Intent(this, WelcomeLoginActivity::class.java))
+            val data = Intent().apply {
+                putExtra(RESULT_DATA, VOUCHER_PAGE_SUCCESS)
+            }
+            setResult(RESULT_OK, data)
             finish()
 
         }
@@ -170,6 +175,16 @@ class VoucherActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(applicationContext, e.message, Toast.LENGTH_LONG).show()
         }
+
+    }
+
+    override fun onBackPressed() {
+
+        val data = Intent().apply {
+            putExtra(RESULT_DATA, VOUCHER_PAGE_SUCCESS)
+        }
+        setResult(RESULT_OK, data)
+        finish()
 
     }
 

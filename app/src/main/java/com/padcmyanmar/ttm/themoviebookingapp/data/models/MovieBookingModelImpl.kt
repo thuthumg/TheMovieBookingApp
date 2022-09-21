@@ -1,7 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.data.models
 
 import android.content.Context
-import android.util.Log
 
 import com.padcmyanmar.ttm.themoviebookingapp.data.vos.*
 import com.padcmyanmar.ttm.themoviebookingapp.network.dataagents.MovieBookingDataAgent
@@ -13,7 +12,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.utils.SUCCESS_CODE
 
 object MovieBookingModelImpl : MovieBookingModel {
 
-    var userToken: String? = null
+    //  var userToken: String? = null
 
     //Data Agent Dependency
     private val mMovieBookingDataAgent: MovieBookingDataAgent = RetrofitDataAgentImpl
@@ -48,9 +47,8 @@ object MovieBookingModelImpl : MovieBookingModel {
                 val token = paramData.first
                 val userDataVO = paramData.second
 
-                this.userToken = PARAM_BEARER + token
 
-                userDataVO.token = this.userToken
+                userDataVO.token = PARAM_BEARER + token
                 userDataVO.activeStatus =
                     1 // to control the current active user account and go to the home page automatically
 
@@ -81,9 +79,7 @@ object MovieBookingModelImpl : MovieBookingModel {
                 val token = paramData.first
                 val userDataVO = paramData.second
 
-                this.userToken = PARAM_BEARER + token
-
-                userDataVO.token = this.userToken
+                userDataVO.token = PARAM_BEARER + token
                 userDataVO.activeStatus = 1
 
                 mMovieBookingDataBase?.userDataDao()?.insertUserData(
@@ -98,6 +94,7 @@ object MovieBookingModelImpl : MovieBookingModel {
     }
 
     override fun getProfile(
+        paymentFlag: Int,
         onSuccess: (userDataVO: UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -116,23 +113,31 @@ object MovieBookingModelImpl : MovieBookingModel {
         //  }
 
 
-        //Network
+        if (paymentFlag == 1) {
+            //Network
+            mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus().let {
+                it?.token?.let { it1 ->
+                    mMovieBookingDataAgent.getProfile(
+                        token = it1,
+                        onSuccess = { userDataVO ->
 
-        mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus().let {
-            it?.token?.let { it1 ->
-                mMovieBookingDataAgent.getProfile(
-                    token = it1,
-                    onSuccess = { userDataVO ->
 
-                        mMovieBookingDataBase?.userDataDao()?.insertUserData(userDataVO)
+                            userDataVO.token = it1
+                            userDataVO.activeStatus = 1
 
-                        onSuccess(userDataVO)
 
-                    },
-                    onFailure = onFailure
-                )
+                            mMovieBookingDataBase?.userDataDao()?.insertUserData(userDataVO)
+
+                            onSuccess(userDataVO)
+
+                        },
+                        onFailure = onFailure
+                    )
+                }
             }
         }
+
+
     }
 
 
@@ -186,9 +191,6 @@ object MovieBookingModelImpl : MovieBookingModel {
     }
 
     override fun logoutCall(onSuccess: (Pair<Int, String>) -> Unit, onFailure: (String) -> Unit) {
-        Log.d("MovieBookingModel", "check token = ${this.userToken}")
-
-
 
         mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.let {
             it.token?.let { it1 ->
@@ -246,19 +248,23 @@ object MovieBookingModelImpl : MovieBookingModel {
 
     override fun getCreditsByMovie(
         movieId: String,
-        onSuccess: (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
+        onSuccess: (List<ActorVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
 
         //Database
-        //  onSuccess(mMovieBookingDataBase?.actorDao()?.getAllActors() ?: listOf())
+
+        onSuccess(mMovieBookingDataBase?.actorDao()?.getActorByType(CAST) ?: listOf())
 
 
         //Network
         mMovieBookingDataAgent.getCreditsByMovie(
             movieId = movieId,
             onSuccess = {
-                mMovieBookingDataBase?.actorDao()?.insertActors(it.first, it.second)
+
+                it.forEach { actorVO -> actorVO.type = CAST }
+
+                mMovieBookingDataBase?.actorDao()?.insertActors(it)
                 onSuccess(it)
 
             },
@@ -278,12 +284,21 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<CinemaDayTimeslotVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-
+// onSuccess: (List<CinemaDayTimeslotVO>) -> Unit,
         //Database
-        mMovieBookingDataBase?.cinemaDayTimeslotDao()?.getCinemaDayTimeslotByDate(dateParam)?.let {
-            onSuccess(
-                it
-            )
+//        mMovieBookingDataBase?.cinemaDayTimeslotDao()?.getCinemaDayTimeslotByDate(dateParam)?.let {
+//            onSuccess(
+//                it
+//            )
+//        }
+
+
+        mMovieBookingDataBase?.dataCinemaAndTImeSlotDao()?.getCinemaAndTimeslotByDate(dateParam)?.let {
+            it.cinemas?.let { it1 ->
+                onSuccess(
+                    it1
+                )
+            }
         }
 
 
@@ -296,21 +311,32 @@ object MovieBookingModelImpl : MovieBookingModel {
                 dateParam = dateParam,
                 onSuccess = { cinemaDayTimeslotList ->
 
-                    cinemaDayTimeslotList.forEach { cinemaDayTimeslotVO ->
-                        cinemaDayTimeslotVO.bookingDate = dateParam
-                    }
 
-                    //to avoid duplicate timeslot data
-                    mMovieBookingDataBase?.cinemaDayTimeslotDao()
-                        ?.getCinemaDayTimeslotByDate(dateParam)?.let { cinemaListData ->
-                            if (cinemaListData.isEmpty()) {
-                                mMovieBookingDataBase?.cinemaDayTimeslotDao()
-                                    ?.insertCinemaDayTimeslot(cinemaDayTimeslotList)
 
-                            }
-                        }
+                    var dataCinemaAndTimeslot = DataCinemaAndTimeSlotVO()
+                    dataCinemaAndTimeslot.date = dateParam
+                    dataCinemaAndTimeslot.cinemas = cinemaDayTimeslotList
+
+                    mMovieBookingDataBase?.dataCinemaAndTImeSlotDao()?.insertCinemaAndTimeslot(dataCinemaAndTimeslot)
 
                     onSuccess(cinemaDayTimeslotList)
+
+                    //for another solution
+//                    cinemaDayTimeslotList.forEach { cinemaDayTimeslotVO ->
+//                        cinemaDayTimeslotVO.bookingDate = dateParam
+//                    }
+                    //to avoid duplicate timeslot data
+//                    mMovieBookingDataBase?.cinemaDayTimeslotDao()
+//                        ?.getCinemaDayTimeslotByDate(dateParam)?.let { cinemaListData ->
+//
+//                            if (cinemaListData.isEmpty()) {
+//                                mMovieBookingDataBase?.cinemaDayTimeslotDao()
+//                                    ?.insertCinemaDayTimeslot(cinemaDayTimeslotList)
+//
+//                            }
+//                        }
+//
+//                    onSuccess(cinemaDayTimeslotList)
 
                 },
                 onFailure = onFailure
@@ -415,7 +441,7 @@ object MovieBookingModelImpl : MovieBookingModel {
     ) {
 
 
-        var checkOutRequest = CheckOutRequest(
+        val checkOutRequest = CheckOutRequest(
             cinemaDayTimeslotId = cinemaDayTimeSlotId,
             row = rowData,
             seatNumber = seatData,
@@ -428,7 +454,7 @@ object MovieBookingModelImpl : MovieBookingModel {
         )
 
         mMovieBookingDataBase?.userDataDao()?.getUserDataByActiveStatus()?.token?.let {
-            checkOutRequest?.let { it1 ->
+            checkOutRequest.let { it1 ->
                 mMovieBookingDataAgent.checkOut(
                     token = it,
                     checkOutRequest = it1,

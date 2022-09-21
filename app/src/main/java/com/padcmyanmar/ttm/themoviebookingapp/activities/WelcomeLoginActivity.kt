@@ -81,7 +81,7 @@ class WelcomeLoginActivity : AppCompatActivity(), LogInWithEmailDelegate, Regist
             email = email,
             password = password,
             onSuccess = {
-                showToast(it)
+               // showToast(it)
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             },

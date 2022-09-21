@@ -11,14 +11,14 @@ interface MovieBookingDataAgent {
         email: String,
         phone: String,
         password: String,
-        onSuccess: (Pair<String,UserDataVO>, message: String) -> Unit,
+        onSuccess: (Pair<String, UserDataVO>, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun loginWithEmail(
         email: String,
         password: String,
-        onSuccess: (Pair<String,UserDataVO>, message: String) -> Unit,
+        onSuccess: (Pair<String, UserDataVO>, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -29,18 +29,18 @@ interface MovieBookingDataAgent {
     )
 
     fun getNowPlayingMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
+        onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getComingSoonMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
+        onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun logoutCall(
         token: String,
-        onSuccess: (Pair<Int,String>) -> Unit,
+        onSuccess: (Pair<Int, String>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -52,7 +52,7 @@ interface MovieBookingDataAgent {
 
     fun getCreditsByMovie(
         movieId: String,
-        onSuccess: (Pair<List<ActorVO>,List<ActorVO>>) -> Unit,
+        onSuccess: (List<ActorVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -65,7 +65,7 @@ interface MovieBookingDataAgent {
     fun getCinemaDayTimeslot(
         token: String,
         movieId: String,
-        dateParam:String,
+        dateParam: String,
         onSuccess: (List<CinemaDayTimeslotVO>) -> Unit,
         onFailure: (String) -> Unit
     )
@@ -74,7 +74,7 @@ interface MovieBookingDataAgent {
     fun getSeatingPlan(
         token: String,
         cinemaDayTimeslotId: String,
-        dateParam:String,
+        dateParam: String,
         onSuccess: (List<MovieSeatVO>) -> Unit,
         onFailure: (String) -> Unit
     )
@@ -98,15 +98,15 @@ interface MovieBookingDataAgent {
         cardHolder: String,
         expirationDate: String,
         cvc: String,
-        onSuccess: (cardNumber:String, message: String) -> Unit,
+        onSuccess: (cardNumber: String, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 
 
     fun checkOut(
         token: String,
-       checkOutRequest: CheckOutRequest,
-        onSuccess: (checkOutVO:CheckOutVO, message: String) -> Unit,
+        checkOutRequest: CheckOutRequest,
+        onSuccess: (checkOutVO: CheckOutVO, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 }

@@ -46,6 +46,7 @@ const val PARAM_EXPIRATION_DATE = "expiration_date"
 const val PARAM_CVC = "cvc"
 
 const val SUCCESS_CODE = 200
+const val CREATE_SUCCESS_CODE = 201
 const val DATE_FORMAT = "EE yyyy-MM-dd"
 const val DATE_FORMAT_YEAR_MONTH_DAY = "yyyy-MM-dd"
 const val TWO_WEEKS = 14

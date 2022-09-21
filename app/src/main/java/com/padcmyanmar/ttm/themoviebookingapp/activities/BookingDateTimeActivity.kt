@@ -1,10 +1,10 @@
 package com.padcmyanmar.ttm.themoviebookingapp.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +37,8 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
         private const val MOVIE_ID = "MOVIE_ID"
         private const val MOVIE_NAME = "MOVIE_NAME"
         private const val MOVIE_PIC = "MOVIE_PIC"
+        private const val REQUEST_RESULT = 1
+        const val RESULT_DATA = "RESULT_DATA"
 
         fun newIntent(
             context: Context,
@@ -124,8 +126,10 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
                 dateParam = it,
                 onSuccess = { cinemaDayTimeslotVOList ->
                     pbTicketBookingTimeLoading.visibility = View.GONE
+                    rvAvailableTicketItemList.visibility = View.VISIBLE
                     mCinemaDayTimeslotVOs = cinemaDayTimeslotVOList
                     mBookingTimeObjectAdapter.setData(cinemaDayTimeslotVOList)
+
                 },
                 onFailure = { msgString ->
                     pbTicketBookingTimeLoading.visibility = View.GONE
@@ -213,7 +217,7 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
                 showError(getString(R.string.txt_booking_time_error))
             } else {
 
-                startActivity(
+                startActivityForResult(
                     SeatingPlanActivity.newIntent(
                         this,
                         movieBookingDateYMDFormat = movieBookingDateYMDFormat,
@@ -229,7 +233,8 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
                         cinemaName = cinemaName,
                         cinemaId = cinemaIdParam,
 
-                        )
+                        ),
+                    REQUEST_RESULT
                 )
             }
 
@@ -273,6 +278,7 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
     //movie date click function
     override fun onTapDateDelegate(mBookingDate: BookingDate, isSelectedId: Int) {
         pbTicketBookingTimeLoading.visibility = View.VISIBLE
+        rvAvailableTicketItemList.visibility = View.GONE
         cinemaTimeSlotId = null
 
         mBookingDateData?.forEach {
@@ -298,5 +304,28 @@ class BookingDateTimeActivity : AppCompatActivity(), AvailableTicketDelegate,
         Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_RESULT) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                // success
+                var resultData = 0
+                data.apply {
+                    resultData = getIntExtra(SeatingPlanActivity.RESULT_DATA, 0)
+
+                }
+
+                if (resultData == VoucherActivity.VOUCHER_PAGE_SUCCESS) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(RESULT_DATA, resultData)
+                    })
+                    finish()
+                }
+            } else {
+                // fail
+            }
+        }
     }
 }

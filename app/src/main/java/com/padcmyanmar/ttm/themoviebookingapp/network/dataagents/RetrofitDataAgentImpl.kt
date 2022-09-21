@@ -8,6 +8,7 @@ import com.padcmyanmar.ttm.themoviebookingapp.network.TheMovieBookingApi
 import com.padcmyanmar.ttm.themoviebookingapp.network.request.CheckOutRequest
 import com.padcmyanmar.ttm.themoviebookingapp.network.responese.*
 import com.padcmyanmar.ttm.themoviebookingapp.utils.BASE_URL
+import com.padcmyanmar.ttm.themoviebookingapp.utils.CREATE_SUCCESS_CODE
 import com.padcmyanmar.ttm.themoviebookingapp.utils.MOVIE_BASE_URL
 import com.padcmyanmar.ttm.themoviebookingapp.utils.SUCCESS_CODE
 import okhttp3.OkHttpClient
@@ -30,11 +31,13 @@ object RetrofitDataAgentImpl : MovieBookingDataAgent {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val mOkHttpClient = OkHttpClient.Builder()
+
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
-            // .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             .build()
+
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -73,15 +76,24 @@ object RetrofitDataAgentImpl : MovieBookingDataAgent {
                 ) {
                     if (response.isSuccessful) {
 
-                        response.body()?.data?.let {
+                        if (response.body()?.code == CREATE_SUCCESS_CODE) {
+                            response.body()?.data?.let {
 
-                            onSuccess(
-                                Pair(
-                                    response.body()?.token ?: "",
-                                    it
-                                ), response.body()?.message ?: ""
-                            )
+                                onSuccess(
+                                    Pair(
+                                        response.body()?.token ?: "",
+                                        it
+                                    ), response.body()?.message ?: ""
+                                )
+                            }
+
                         }
+                        else{
+                            response.body()?.message?.let { onFailure(it) }
+                        }
+
+
+
                     } else {
 
                         onFailure(response.message())
@@ -301,7 +313,7 @@ object RetrofitDataAgentImpl : MovieBookingDataAgent {
 
     override fun getCreditsByMovie(
         movieId: String,
-        onSuccess: (Pair<List<ActorVO>, List<ActorVO>>) -> Unit,
+        onSuccess: (List<ActorVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mTheMovieApi?.getCreditsByMovie(movieId = movieId)?.enqueue(
@@ -312,7 +324,7 @@ object RetrofitDataAgentImpl : MovieBookingDataAgent {
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            onSuccess(Pair(it.cast ?: listOf(), it.crew ?: listOf()))
+                            onSuccess(it.cast ?: listOf())
                         }
                     } else {
                         onFailure(response.message())

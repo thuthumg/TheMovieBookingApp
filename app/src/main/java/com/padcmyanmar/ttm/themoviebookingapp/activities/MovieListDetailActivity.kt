@@ -1,5 +1,6 @@
 package com.padcmyanmar.ttm.themoviebookingapp.activities
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +24,7 @@ import kotlin.math.roundToLong
 class MovieListDetailActivity : AppCompatActivity() {
 
     companion object {
-
+        private const val REQUEST_RESULT = 1
         private const val MOVIE_ID = "MOVIE_ID"
 
         fun newIntent(context: Context, movieId: Int): Intent {
@@ -42,7 +43,7 @@ class MovieListDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list_detail)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -74,7 +75,7 @@ class MovieListDetailActivity : AppCompatActivity() {
 
         mMovieBookingModel.getCreditsByMovie(movieId = movieId.toString(),
             onSuccess = {
-                mCastListAdapter.setData(it.first)
+                mCastListAdapter.setData(it)
             },
             onFailure = {
                 showError(it)
@@ -111,16 +112,19 @@ class MovieListDetailActivity : AppCompatActivity() {
             onBackPressed()
         }
         btnGetTicket.setOnClickListener {
-            startActivity(movieId?.let { it1 ->
-                mMovieVO?.posterPath?.let { it2 ->
-                    BookingDateTimeActivity.newIntent(
-                        context = this,
-                        movieId = it1,
-                        movieTitle = mMovieVO?.title.toString(),
-                        moviePic = it2
-                    )
-                }
-            })
+            startActivityForResult(
+                movieId?.let { it1 ->
+                    mMovieVO?.posterPath?.let { it2 ->
+                        BookingDateTimeActivity.newIntent(
+                            context = this,
+                            movieId = it1,
+                            movieTitle = mMovieVO?.title.toString(),
+                            moviePic = it2
+                        )
+                    }
+                },
+                REQUEST_RESULT
+            )
 
         }
     }
@@ -138,6 +142,26 @@ class MovieListDetailActivity : AppCompatActivity() {
         Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_RESULT) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                // success
+                var resultData = 0
+                data.apply {
+                    resultData = getIntExtra(BookingDateTimeActivity.RESULT_DATA, 0)
+
+                }
+
+                if (resultData == VoucherActivity.VOUCHER_PAGE_SUCCESS) {
+                    finish()
+                }
+            } else {
+                // fail
+            }
+        }
     }
 
 }

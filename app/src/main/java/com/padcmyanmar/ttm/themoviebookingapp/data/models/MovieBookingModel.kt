@@ -11,37 +11,38 @@ interface MovieBookingModel {
         email: String,
         phone: String,
         password: String,
-        onSuccess: (message:String) -> Unit,
+        onSuccess: (message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun loginWithEmail(
         email: String,
         password: String,
-        onSuccess: (message:String) -> Unit,
+        onSuccess: (message: String) -> Unit,
         onFailure: (String) -> Unit
 
     )
 
 
     fun getProfile(
-        onSuccess: (userDataVO:UserDataVO) -> Unit,
+        paymentFlag: Int,
+        onSuccess: (userDataVO: UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getNowPlayingMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
+        onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getComingSoonMovies(
-        onSuccess : (List<MovieVO>) -> Unit,
+        onSuccess: (List<MovieVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
 
     fun logoutCall(
-        onSuccess : (Pair<Int,String>) -> Unit,
+        onSuccess: (Pair<Int, String>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -54,7 +55,7 @@ interface MovieBookingModel {
 
     fun getCreditsByMovie(
         movieId: String,
-        onSuccess: (Pair<List<ActorVO>,List<ActorVO>>) -> Unit,
+        onSuccess: (List<ActorVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -65,14 +66,21 @@ interface MovieBookingModel {
 
     fun getCinemaDayTimeslot(
         movieId: String,
-        dateParam:String,
+        dateParam: String,
         onSuccess: (List<CinemaDayTimeslotVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
+//    fun getCinemaDayTimeslot(
+//        movieId: String,
+//        dateParam: String,
+//        onSuccess: (DataCinemaAndTimeSlotVO) -> Unit,
+//        onFailure: (String) -> Unit
+//    )
+
     fun getSeatingPlan(
         cinemaDayTimeslotId: Int,
-        bookingDate:String,
+        bookingDate: String,
         onSuccess: (List<MovieSeatVO>) -> Unit,
         onFailure: (String) -> Unit
     )
@@ -92,21 +100,21 @@ interface MovieBookingModel {
         cardHolder: String,
         expirationDate: String,
         cvc: String,
-        onSuccess: (cardNumber:String, message: String) -> Unit,
+        onSuccess: (cardNumber: String, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun checkOut(
-        cinemaDayTimeSlotId:Int?,
-        rowData:String?,
-        seatData:String?,
-        movieBookingDateYMDFormat:String?,
-        totalPrice:Int?,
-        movieId:Int?,
-        cinemaId:Int?,
-        cardId:Int?,
-        snackListString:List<SnackVO>?,
-        onSuccess: (checkOutVO:CheckOutVO, message: String) -> Unit,
+        cinemaDayTimeSlotId: Int?,
+        rowData: String?,
+        seatData: String?,
+        movieBookingDateYMDFormat: String?,
+        totalPrice: Int?,
+        movieId: Int?,
+        cinemaId: Int?,
+        cardId: Int?,
+        snackListString: List<SnackVO>?,
+        onSuccess: (checkOutVO: CheckOutVO, message: String) -> Unit,
         onFailure: (String) -> Unit
     )
 }
