@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -219,6 +220,7 @@ class SnackActivity : AppCompatActivity(), PaymentMethodDelegate, SnackDelegate 
 
                 val snackJsonString: String = toChangeJsonString(requestParamSelectedSnackVOList)
 
+                Log.d("SanckActivity","check snack list $snackJsonString")
                 startActivityForResult(
                     PaymentConfirmActivity.newIntent(
                         this,
